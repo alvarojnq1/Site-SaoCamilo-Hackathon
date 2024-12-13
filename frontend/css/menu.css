@@ -1,3 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    font-size: 16px;
+    font-family: "Poppins", serif;
+}
+:root{
+    --cinza: #6C757D;
+    --branco: #ffffff;
+    --vermelhoClaro: #F2676E;
+    --vermelhoEscuro: #B70F18;
+    --preto: #000000;
+    --pretoSecundario: #111111;
+    --fonte: font-family: 
+}
 /* Menu: Alinhamento e Efeito */
 .my-menu-navbar {
     text-align: center;
@@ -78,4 +92,122 @@
     .my-menu-responsividadeIconesBotao{
         margin: 20px 0px;
     }
+}
+
+
+/* a */
+/* Ajustes no modal */
+.modal-dialog {
+    max-width: 70%;
+    margin: auto; /* Centraliza verticalmente e horizontalmente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 10%;
+}
+
+.modal-content {
+    border-radius: 20px; /* Arredonda as bordas do conteúdo do modal */
+    padding: 0; /* Remove o padding para otimizar o espaço */
+}
+
+/* Layout da área de login */
+.login {
+    display: flex;
+    flex-direction: column; /* Organiza os itens na coluna */
+    align-items: center; /* Centraliza os itens horizontalmente */
+    justify-content: center; /* Centraliza os itens verticalmente */
+    width: 100%; /* Faz a área de login ocupar toda a largura do modal */
+    padding: 20px;
+}
+
+.itens {
+    width: 100%; /* Garantir que ocupe 100% da largura do contêiner */
+    max-width: 400px; /* Limita a largura para que não fique muito grande */
+    display: flex;
+    flex-direction: column; /* Organiza os itens em uma coluna */
+    align-items: center; /* Centraliza os itens horizontalmente */
+    justify-content: center; /* Centraliza os itens verticalmente */
+}
+
+/* Estilos dos campos de input */
+.itens input {
+    width: 100%; /* Faz os inputs ocuparem toda a largura do contêiner */
+    padding: 10px;
+    border-radius: 10px; /* Bordas arredondadas para os inputs */
+    border: 1px solid #ddd; /* Define uma borda suave */
+}
+
+/* Botão de login */
+#botao-entrar {
+    background-color: var(--vermelhoEscuro); /* Cor do botão */
+    width: 100%; /* Ocupa toda a largura */
+    padding: 7px;
+    border-radius: 20px; /* Bordas arredondadas */
+    color: white;
+    font-weight: bold;
+}
+
+/* Link de cadastro */
+.texto {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.texto a {
+    color: #d9534f; /* Cor do link */
+    text-decoration: none; /* Remove o sublinhado */
+}
+
+/* Ajustes para a imagem do lado direito */
+.imagem {
+    display: none; /* Esconde a imagem em telas menores */
+}
+
+@media (min-width: 768px) {
+    .imagem {
+        display: block; /* Exibe a imagem em telas maiores */
+        width: 50%; /* Tamanho da imagem */
+    }
+    .login {
+        flex-direction: row; /* Layout em linha para telas maiores */
+    }
+    .itens {
+        width: 50%; /* Ocupa metade da tela */
+    }
+}
+
+/* Estilos para os ícones dentro do input */
+.input-group-text {
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.input-group-text i {
+    color: #555;
+}
+.texto-principal{
+    font-size: 35px;
+    font-weight: 500;
+    margin-bottom: 1%;
+}
+.itens img{
+    margin-bottom: 5%;
+}
+
+#icone-ver-senha{
+    cursor: pointer;
+}
+.itens button{
+    font-weight: 600;
+}
+.itens a{
+    text-decoration: none;
+    color: var(--vermelhoEscuro);
+}
+.text-center > p{
+    padding-top: 20px;
+    border-top: 1px solid black;
 }

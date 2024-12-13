@@ -111,3 +111,5 @@ function salvarEdicao() {
     document.getElementById('edicaoPerfil').style.display = 'none';
     document.getElementById('btnEditarPerfil').style.display = 'block';
 }
+
+;
