@@ -1,18 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- BootStrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="frontend/css/style.css">
-    <title>Document</title>
-</head>
-<body>
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
+    <title>Login</title>
+
+</head>
+
+<body>
+    <div class="my-quadrado" id="quadrado-cima"></div>
+    <div class="my-quadrado" id="quadrado-baixo"></div>
+
+    <div class="container-fluid" id="main">
+        <div class="login">
+            <div class="itens">
+                <p class="texto-principal">LOGIN</p>
+                <img src="./frontend/images/Logo.svg" alt="logo">
+                
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="icone-user"><i class="fa-solid fa-user"></i></span>
+                        </div>
+                        <input type="email" class="form-control" placeholder="E-mail" aria-label="Email"
+                            aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="icone-cadeado"><i class="fa-solid fa-lock"></i></span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Senha" aria-label="Senha"
+                            aria-describedby="basic-addon2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="icone-ver-senha"><i class="fa-solid fa-eye"></i></span>
+                            </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="botao-entrar">Entrar</button>
+                <p class="texto">Ainda não tem conta? <a href="cadastro.html">Clique aqui</a></p>
+            </div>
+        </div>
+        <div class="imagem">
+            <img src="./frontend/images/Imagem.svg" alt="imagem-principal">
+        </div>
+    </div>
 
     <script src="frontend/script/script.js"></script>
 
 </body>
+
 </html>

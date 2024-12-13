@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    font-size: 16px;
+    font-family: "Poppins", serif;
+}
+:root{
+    --cinza: #6C757D;
+    --branco: #ffffff;
+    --vermelhoClaro: #F2676E;
+    --vermelhoEscuro: #B70F18;
+    --preto: #000000;
+    --pretoSecundario: #111111;
+    --fonte: font-family: 
+}
+
+.my-quadrado {
+    width: 200px;
+    height: 200px;
+    background-color: var(--vermelhoClaro);
+    display: flex;
+    position: fixed; 
+    border: solid 1px black;
+    z-index: 0;
+
+}
+
+#quadrado-cima {
+    top: 0; 
+    left: 0; 
+    border-radius: 0px 0px 10px 0px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+#quadrado-baixo {
+    bottom: 0;
+    right: 0; 
+    border-radius: 10px 0px 0px 0px;
+    box-shadow: -4px -4px 10px rgba(0, 0, 0, 0.5);
+}
+#main {
+
+    padding: 0;
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    box-shadow: 0px 15px 8px -7px rgba(0, 0, 0, 0.5);
+    display: flex; 
+    border-radius: 20px;
+}
+
+.login, .imagem {
+    width: 50%; /* Cada div ocupa 50% do espaço */
+    height: 100%; /* Para que ambas ocupem toda a altura do contêiner */
+}
+
+
+.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px 0px 0px 20px;
+    background-color: var(--branco);
+}
+
+.imagem {
+    border-radius: 20px 0px 0px 20px; 
+}
+.imagem img {
+    width: 100%;  /* Faz a imagem ocupar 100% da largura da div */
+    height: 100%; /* Faz a imagem ocupar 100% da altura da div */
+    object-fit: cover; /* Mantém a proporção e cobre a área disponível */
+}
+.texto-principal{
+    font-size: 35px;
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+.itens {
+    width: 75%;
+    height: 75%;
+    display: flex;
+    flex-direction: column; /* Organiza os itens em uma coluna */
+    align-items: center; /* Centraliza os itens horizontalmente */
+    justify-content: center; /* Centraliza os itens verticalmente */
+}
+
+.itens input{
+    border: solid 1px black;
+    border-radius: 5px;
+}
+.input-group-prepend{
+    border: solid 1px black;
+    border-radius: 5px;
+}
+#botao-entrar{
+    background-color: var(--vermelhoEscuro);
+    width: 100%;
+    border-radius: 20px;
+}
+.texto{
+    margin-top: 25px;
+}
+.texto a{
+    text-decoration: none;
+    color: var(--vermelhoEscuro);
+}
+.itens img{
+    margin-bottom: 25px;
+}
+#icone-ver-senha{
+    cursor: pointer;
+}
