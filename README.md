@@ -10,23 +10,24 @@
 |-----------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
 | HTML                                                                                                       | CSS                                                                                                        | JavaScript                                                                                                   | Bootstrap                                                                                                    | Node JS                                                                                                     | MongoDB                                                                                                      | Figma                                                                                                     |
 ## Participantes
-| Nome                            |                                               
-|---------------------------------|
-| Alvaro Nogueira Junqueira Souza |
-| Lucas Novaes de Sá Ferreira     |
-| Victor Hugo Gaetano             |
+| Nome                            |   Foto                                                                                         |
+|---------------------------------|------------------------------------------------------------------------------------------------|
+| Alvaro Nogueira Junqueira Souza |  <img src="https://github.com/user-attachments/assets/700d83a3-41bc-4309-b4c5-f7b4347dadae" width="100" /> | 
+| Lucas Novaes de Sá Ferreira     |  <img src="https://github.com/user-attachments/assets/45b527b9-1e1c-40af-877d-ace876f76bac" width="100" /> |
+| Victor Hugo Gaetano             |  <img src="https://github.com/user-attachments/assets/4ef6a536-96fd-46e8-9fb0-f0855e8a07bf" width="100" /> |
+
 
 
 ## Extenções para serem instaladas
 ```
-npm install express
-npm install axios
-npm install cors
-npm install mongodb
-npm install mongoose
-npm install dotenv
-npm install bcrypt
-npm install jsonwebtoken
+npm install nodemon                     --> Reinicia o servidor a cada vez que um arquivo é editado
+npm install express                     --> Biblioteca para criar o servidor e gerenciar rotas
+npm install axios                       --> Cliente HTTP (faz as requisições). 
+npm install cors                        --> Middleware para permitir requisições de outras origens (CORS)
+npm install mongoose                    --> Biblioteca para conectar e interagir com o MongoDB
+npm install mongoose-unique-validator   --> Plugin para validar campos únicos no banco de dados
+npm install bcrypt                      --> Biblioteca para criptografar senhas
+npm install jsonwebtoken                --> Biblioteca para criar e validar JSON Web Tokens para autenticação
 ```
 ## Rodar o programa
 ```
