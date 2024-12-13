@@ -29,7 +29,9 @@ npm install bcrypt
 npm install jsonwebtoken
 ```
 ## Rodar o programa
+```
 npm start
+```
 
 ## Estatísticas
 ![](https://visitor-badge.laobi.icu/badge?page_id=VictorHugo-7.Site-SaoCamilo-Hackathon)
