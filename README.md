@@ -16,12 +16,9 @@
 | Lucas Novaes de Sá Ferreira     |
 | Victor Hugo Gaetano             |
 
-## Estatísticas
-![](https://visitor-badge.laobi.icu/badge?page_id=VictorHugo-7.Site-SaoCamilo-Hackathon)
-![Tamanho do Repositório](https://img.shields.io/github/repo-size/VictorHugo-7/Site-SaoCamilo-Hackathon)
-![Linguagens](https://img.shields.io/github/languages/top/VictorHugo-7/Site-SaoCamilo-Hackathon)
 
 ## Extenções para serem instaladas
+```
 npm install express
 npm install axios
 npm install cors
@@ -30,11 +27,14 @@ npm install mongoose
 npm install dotenv
 npm install bcrypt
 npm install jsonwebtoken
-
+```
 ## Rodar o programa
 npm start
 
-
+## Estatísticas
+![](https://visitor-badge.laobi.icu/badge?page_id=VictorHugo-7.Site-SaoCamilo-Hackathon)
+![Tamanho do Repositório](https://img.shields.io/github/repo-size/VictorHugo-7/Site-SaoCamilo-Hackathon)
+![Linguagens](https://img.shields.io/github/languages/top/VictorHugo-7/Site-SaoCamilo-Hackathon)
 
 
 
