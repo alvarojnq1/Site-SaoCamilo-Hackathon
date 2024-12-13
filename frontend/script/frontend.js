@@ -112,4 +112,7 @@ function salvarEdicao() {
     document.getElementById('btnEditarPerfil').style.display = 'block';
 }
 
-;
+// Ao fechar o modal de login, abra o modal de cadastro
+$('#loginModal').on('hidden.bs.modal', function () {
+    $('#cadastroModal').modal('show');
+});

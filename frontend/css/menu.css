@@ -1,18 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-*{
+
+* {
     font-size: 16px;
     font-family: "Poppins", serif;
 }
-:root{
+
+:root {
     --cinza: #6C757D;
     --branco: #ffffff;
     --vermelhoClaro: #F2676E;
     --vermelhoEscuro: #B70F18;
     --preto: #000000;
     --pretoSecundario: #111111;
-    --fonte: font-family: 
 }
-/* Menu: Alinhamento e Efeito */
+
+/* Menu */
 .my-menu-navbar {
     text-align: center;
 }
@@ -27,44 +29,52 @@
     z-index: 10;
 }
 
-
-
 /* Logo */
 .my-menu-logo {
     height: 50px;
 }
-.my-menu-logoFisio{
+
+.my-menu-logoFisio {
     color: black;
     font-weight: 500;
 }
-.my-menu-logoFit{
+
+.my-menu-logoFit {
     color: red;
     font-weight: 500;
 }
-.my-menu-logoFormatacao{
+
+.my-menu-logoFormatacao {
     text-decoration: none;
 }
 
-
-
-/* Links  */
+/* Links */
 .my-menu-links {
     color: black;
     margin: 0 10px;
     text-decoration: none;
     font-weight: 500;
 }
+
 .my-menu-links:hover {
     color: red;
 }
+
+/* Responsividade */
 @media (max-width: 990px) {
-    .my-menu-navbar .nav-item{
+    .my-menu-navbar .nav-item {
         font-size: 20px;
-        margin: 10px 0px;
+        margin: 10px 0;
+    }
+
+    .my-menu-btnPerfil {
+        font-size: 20px;
+    }
+
+    .my-menu-responsividadeIconesBotao {
+        margin: 20px 0;
     }
 }
-
-
 
 /* Btn Perfil */
 .my-menu-btnPerfil {
@@ -76,30 +86,15 @@
     margin-left: 10px;
     text-decoration: none;
 }
+
 .my-menu-btnPerfil:hover {
     opacity: 75%;
 }
-@media (max-width: 990px) {
-    .my-menu-btnPerfil {
-        font-size: 20px;
-    }
-}
 
-
-
-
-@media (max-width: 990px) {
-    .my-menu-responsividadeIconesBotao{
-        margin: 20px 0px;
-    }
-}
-
-
-/* a */
 /* Ajustes no modal */
 .modal-dialog {
     max-width: 70%;
-    margin: auto; /* Centraliza verticalmente e horizontalmente */
+    margin: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -107,43 +102,50 @@
 }
 
 .modal-content {
-    border-radius: 20px; /* Arredonda as bordas do conteúdo do modal */
-    padding: 0; /* Remove o padding para otimizar o espaço */
+    border-radius: 20px;
+    padding: 0;
 }
 
-/* Layout da área de login */
 .login {
     display: flex;
-    flex-direction: column; /* Organiza os itens na coluna */
-    align-items: center; /* Centraliza os itens horizontalmente */
-    justify-content: center; /* Centraliza os itens verticalmente */
-    width: 100%; /* Faz a área de login ocupar toda a largura do modal */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     padding: 20px;
 }
 
 .itens {
-    width: 100%; /* Garantir que ocupe 100% da largura do contêiner */
-    max-width: 400px; /* Limita a largura para que não fique muito grande */
+    width: 100%;
+    max-width: 400px;
     display: flex;
-    flex-direction: column; /* Organiza os itens em uma coluna */
-    align-items: center; /* Centraliza os itens horizontalmente */
-    justify-content: center; /* Centraliza os itens verticalmente */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Estilos dos campos de input */
 .itens input {
-    width: 100%; /* Faz os inputs ocuparem toda a largura do contêiner */
+    width: 100%;
     padding: 10px;
-    border-radius: 10px; /* Bordas arredondadas para os inputs */
-    border: 1px solid #ddd; /* Define uma borda suave */
+    border-radius: 10px;
+    border: 1px solid #ddd;
 }
 
 /* Botão de login */
 #botao-entrar {
-    background-color: var(--vermelhoEscuro); /* Cor do botão */
-    width: 100%; /* Ocupa toda a largura */
+    background-color: var(--vermelhoEscuro);
+    width: 100%;
     padding: 7px;
-    border-radius: 20px; /* Bordas arredondadas */
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+}
+#botao-cadastrar{
+    background-color: var(--vermelhoEscuro);
+    width: 100%;
+    padding: 7px;
+    border-radius: 20px;
     color: white;
     font-weight: bold;
 }
@@ -156,26 +158,8 @@
 }
 
 .texto a {
-    color: #d9534f; /* Cor do link */
-    text-decoration: none; /* Remove o sublinhado */
-}
-
-/* Ajustes para a imagem do lado direito */
-.imagem {
-    display: none; /* Esconde a imagem em telas menores */
-}
-
-@media (min-width: 768px) {
-    .imagem {
-        display: block; /* Exibe a imagem em telas maiores */
-        width: 50%; /* Tamanho da imagem */
-    }
-    .login {
-        flex-direction: row; /* Layout em linha para telas maiores */
-    }
-    .itens {
-        width: 50%; /* Ocupa metade da tela */
-    }
+    color: var(--vermelhoEscuro);
+    text-decoration: none;
 }
 
 /* Estilos para os ícones dentro do input */
@@ -188,26 +172,40 @@
 .input-group-text i {
     color: #555;
 }
-.texto-principal{
+
+.texto-principal {
     font-size: 35px;
     font-weight: 500;
     margin-bottom: 1%;
 }
-.itens img{
+
+.itens img {
     margin-bottom: 5%;
 }
 
-#icone-ver-senha{
+#icone-ver-senha {
     cursor: pointer;
 }
-.itens button{
+
+.itens button {
     font-weight: 600;
 }
-.itens a{
+
+.itens a {
     text-decoration: none;
     color: var(--vermelhoEscuro);
 }
-.text-center > p{
+
+.text-center > p {
     padding-top: 20px;
     border-top: 1px solid black;
 }
+
+.modal-body div > img {
+    max-height: 100%; /* Garante que a imagem ocupe 100% da altura */
+    height: 100%;
+    width: 100%; /* Largura definida como 50% */
+    object-fit: cover; /* Preenche o espaço mantendo proporções */
+    object-position: center; /* Centraliza a imagem */
+}
+
