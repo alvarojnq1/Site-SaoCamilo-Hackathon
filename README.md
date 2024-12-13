@@ -1,6 +1,6 @@
 # Site São Camilo Hackathon
 > Bem-vindo ao site do Hackathon promovido pela Universidade São Camilo em parceria com o Instituto Mauá de Tecnologia. <br>
-> O objetivo deste Hackathon é criar um sistema que sugira exercícios simples de alongamento ou respiração, ajudando os usuários a incorporar práticas de autocuidado em suas rotinas.
+> O objetivo deste Hackathon é criar um sistema que sugira exercícios simples de alongamento ou respiração, ajudando os usuários a incorporar práticas de autocuidado em suas rotinas
 
 ## Status
 > Em Desenvolvimento. Este projeto está em progresso, e novas funcionalidades podem ser adicionadas ou ajustadas.
