@@ -14,6 +14,7 @@
     <link rel="manifest" href="frontend/images/favicon/site.webmanifest">
     <!-- Link CSS -->
     <link rel="stylesheet" href="frontend/css/menu.css">
+    <link rel="stylesheet" href="frontend/css/style.css">
     <!-- Link Ícones | https://cdnjs.com/libraries/font-awesome | https://fontawesome.com/ -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -23,67 +24,8 @@
 </head>
 
 <body>
-    <!-- Menu -->
-    <div class="my-menu-efeito">
-        <div class="container">
-            <div class="my-menu-navbar navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container-fluid">
-
-                    <!-- Logo -->
-                    <a href="#" class="my-menu-logoFormatacao">
-                        <img class="my-menu-logo" src="frontend/images/Logo.svg" alt="Logo FisioFit">
-                        <span class="my-menu-logoFisio">Fisio</span><span class="my-menu-logoFit">Fit</span>
-                    </a>
-
-                    <!-- Responsividade -->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <!-- Itens Menu -->
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item"><a class="my-menu-links" aria-current="page" href="#">Ínicio</a> </li>
-                            <li class="nav-item"><a class="my-menu-links" aria-current="page" href="#">Lembretes</a>
-                            </li>
-                            <li class="nav-item"><a class="my-menu-links" aria-current="page"
-                                    href="#">Fisioterapeutas</a></li>
-                        </ul>
-
-                        <div class="my-menu-responsividadeIconesBotao">
-                            <!-- Btn - Paciente -->
-                            <span> <img src="frontend/images/iconeMenuPaciente.svg" alt="" class="mx-2"> </span>
-
-                            <!-- Btn - Fisioterapeuta -->
-                            <span> <img src="frontend/images//iconeMenuFisioterapeuta.svg" alt=""> </span>
-
-                            <!-- Btn Login -->
-                            <a href="#" class="my-menu-btnPerfil mx-2" data-bs-toggle="modal"
-                                data-bs-target="#loginModal">
-                                <i class="fa-solid fa-user" style="color: white;"></i><span style="font-weight: 500;">
-                                    Login</span>
-                            </a>
-
-                            <!-- Btn Perfil -->
-                            <a href="#" class="my-menu-btnPerfil mx-2" data-bs-toggle="modal"
-                                data-bs-target="#perfilModal">
-                                <i class="fa-solid fa-user" style="color: white;"></i><span style="font-weight: 500;">
-                                    Perfil</span>
-                            </a>
-
-                            <!-- Btn - Sair -->
-                            <a href="#" class=""> <img src="frontend/images/iconeMenuX.svg" alt="" height="24px"></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Modal Perfil -->
-    <div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="perfilModalLabel" aria-hidden="true">
+    <div class="modal fade" id="perfilModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="perfilModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -117,7 +59,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal fade" id="loginModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
@@ -176,7 +118,7 @@
     </div>
 
     <!-- CADASTRO -->
-    <div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
+    <div class="modal fade" id="cadastroModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
@@ -236,6 +178,98 @@
         </div>
     </div>
 
+    <!-- Menu -->
+    <div class="my-menu-efeito">
+        <div class="container">
+            <div class="row">
+                <div class="my-menu-navbar navbar navbar-expand-lg bg-body-tertiary">
+                    <div class="container-fluid">
+
+                        <!-- Logo -->
+                        <a href="#" class="my-menu-logoFormatacao">
+                            <img class="my-menu-logo" src="frontend/images/Logo.svg" alt="Logo FisioFit">
+                            <span class="my-menu-logoFisio">Fisio</span><span class="my-menu-logoFit">Fit</span>
+                        </a>
+
+                        <!-- Responsividade -->
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <!-- Itens Menu -->
+                        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                            <ul class="navbar-nav ms-auto">
+                                <li class="nav-item"><a class="my-menu-links" aria-current="page" href="index.html">Home</a> </li>
+                                <li class="nav-item"><a class="my-menu-links" aria-current="page" href="#">Lembretes</a>
+                                </li>
+                                <li class="nav-item"><a class="my-menu-links" aria-current="page"
+                                        href="#">Fisioterapeutas</a></li>
+                            </ul>
+
+                            <div class="my-menu-responsividadeIconesBotao">
+                                <!-- Btn - Paciente -->
+                                <span> <img src="frontend/images/iconeMenuPaciente.svg" alt="" class="mx-2"> </span>
+
+                                <!-- Btn - Fisioterapeuta -->
+                                <span> <img src="frontend/images//iconeMenuFisioterapeuta.svg" alt=""> </span>
+
+                                <!-- Btn Login -->
+                                <a href="#" class="my-menu-btnPerfil mx-2" data-bs-toggle="modal"
+                                    data-bs-target="#loginModal">
+                                    <i class="fa-solid fa-user" style="color: white;"></i><span style="font-weight: 500;">
+                                        Login</span>
+                                </a>
+
+                                <!-- Btn Perfil -->
+                                <a href="#" class="my-menu-btnPerfil mx-2" data-bs-toggle="modal"
+                                    data-bs-target="#perfilModal">
+                                    <i class="fa-solid fa-user" style="color: white;"></i><span style="font-weight: 500;">
+                                        Perfil</span>
+                                </a>
+
+                                <!-- Btn - Sair -->
+                                <a href="#" class=""> <img src="frontend/images/iconeMenuX.svg" alt="" height="24px"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div class="container d-flex justify-content-between main-cnt">
+            <div class="row">
+                <div class="col col-lg-6 col-xl-6 col-xxl-6">
+                    <h4 class="main-space">Bem-Vindo</h4>
+                    <h1 class="main-space">FisioFit</h1>
+                    <h3 id="main-space-h3"><span id="site">Site</span> sobre Fisioterapia</h3>
+
+                    <div id="main-p">
+                        <p>Nosso site foi criado para promover saúde, bem-estar e qualidade de vida através de informações e serviços voltados ao cuidado com o corpo.</p>
+                        <p>Aqui, você encontrará tudo o que precisa para entender mais sobre a importância da fisioterapia e como ela pode transformar a sua qualidade de vida.</p>
+                    </div>
+
+                    <button id="btn-lembretes">Lembretes</button>
+                </div>
+                <div class="col col-lg-6 col-xl-6 col-xxl-6">
+                    <img src="frontend/images/Imagem-1.png" id="imagem-1" alt="Imagem de uma profissional de fisioterapia alongando a paciente deitada sobre a maca">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container-fluid footer-cont">
+            <div class="row">
+                <div class="col">
+                    <p>© 2024 Todos Direitos Reservados FisioFit</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
