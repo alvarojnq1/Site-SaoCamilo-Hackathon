@@ -1,34 +1,34 @@
 // ------------------------------------------ Código Front-End com o Back-End ------------------------------------------------
 
-const protocolo = `http`
-const port = `3000`
-const baseURL = `localhost:${port}`
+const protocolo = `http://`
+const baseURL = `localhost:3000`
 
 // Signup Users
 async function cadastrarUsuario() {
-    let usuarioCadastroInput = document.querySelector(".#")
-    let passwordCadastroInput = document.querySelector(".#")
-    let { usuarioCadastro } = usuarioCadastroInput.value
-    let { passwordCadastro } = passwordCadastroInput.value 
+    let usuarioCadastroInput = document.querySelector("#usuarioCadastroInput");
+    let passwordCadastroInput = document.querySelector("#usuarioPasswordInput");
+    let usuarioCadastro = usuarioCadastroInput.value
+    let passwordCadastro = passwordCadastroInput.value 
     if (usuarioCadastro && passwordCadastro) {
         try {
             const cadastroEndpoint = "/signup"
-            const URLCompleta = `${protocolo}${baseUrl}${cadastroEndpoint}`
-            await axios.psot(URLCompleta, {
+            const URLCompleta = `${protocolo}${baseURL}${cadastroEndpoint}`
+            await axios.post(URLCompleta, {
                 login: usuarioCadastro, password: passwordCadastro
             }) 
             usuarioCadastroInput.value = ""
             passwordCadastroInput.value = ""
-            exibirAlerta(".#", "Usuário cadastrado com sucesso", ["show", "classe_alerta_success"], ["d-none", "classe_alerta_danger"], 2000)
+            exibirAlerta(".alert-modal-cadastro", "Usuário cadastrado com sucesso", ["show", "alerta_success"], ["d-none", "alerta_danger"], 2000);
+            ocultartModal("#cadastroModal", 1000)
         } catch (error) {
-            exibirAlerta(".#", "Erro ao cadastrar usuário", ["show", "classe_alerta_danger"], ["d-none", "classe_alerta_success"], 2000)
+            exibirAlerta(".alert-modal-cadastro", "Erro ao cadastrar usuário", ["show", "alerta_danger"], ["d-none", "alerta_success"], 2000);
+            ocultartModal("#cadastroModal", 1000)
         }
-    }
-    // Alterar o seletor e as classes to Add e Remove
-    else {
-        exibirAlerta(".#", "Preencha todos os campos", ["show", "classe_alerta_danger"], ["d-none", "classe_alerta_success"], 2000)
+    } else {
+        exibirAlerta(".alert-modal-cadastro", "Preencha todos os campos", ["show", "alerta_danger"], ["d-none", "alerta_success"], 2000);
     }
 }
+
 
 // Login Users
 async function fazerLogin() {
@@ -63,15 +63,15 @@ function exibirAlerta(seletor, mensagem, classesToAdd, classesToRemove, timeout)
 }
 
 // função para fechar o modal
-// function ocultartModal(seletor, timeout) {
-//     setTimeout(() => {
-//         let modal = bootstrap.Modal.getInstance(document.querySelector(seletor))
-//         modal.hide()
-//     }, timeout);
-// }
+function ocultartModal(seletor, timeout) {
+    setTimeout(() => {
+        let modal = bootstrap.Modal.getInstance(document.querySelector(seletor))
+        modal.hide()
+    }, timeout);
+}
 
 
-// ---------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------- Outras Funcionalidades ---------------------------------------------------
 
 function editarImagem() {
     document.getElementById('editImageSection').style.display = 'block';

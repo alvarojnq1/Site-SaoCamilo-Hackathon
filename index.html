@@ -25,7 +25,8 @@
 
 <body>
     <!-- Modal Perfil -->
-    <div class="modal fade" id="perfilModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="perfilModalLabel" aria-hidden="true">
+    <div class="modal fade" id="perfilModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="perfilModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -59,7 +60,9 @@
         </div>
     </div>
 
-    <div class="modal fade" id="loginModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <!-- LOGIN -->
+    <div class="modal fade" id="loginModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="loginModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
@@ -73,6 +76,10 @@
                     <div class="row">
                         <!-- Coluna do formulário -->
                         <div class="col-md-6 d-flex align-items-center justify-content-center" id="containerzao">
+                            <div class="show alert alert-dismissible fade alert-modal-cadastro" role="alert">
+
+                            </div>
+
                             <form class="itens">
                                 <p class="texto-principal">LOGIN</p>
                                 <img src="./frontend/images/Logo.svg" alt="logo">
@@ -118,7 +125,8 @@
     </div>
 
     <!-- CADASTRO -->
-    <div class="modal fade" id="cadastroModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
+    <div class="modal fade" id="cadastroModal" data-bs-backdrop="static" tabindex="-1"
+        aria-labelledby="cadastroModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
@@ -133,26 +141,36 @@
 
                         <!-- Coluna do formulário -->
                         <div class="col-md-6 d-flex align-items-center justify-content-center">
+                            <div class="d-none alert alert-dismissible fade alert-modal-cadastro" role="alert">
+
+                            </div>
+
                             <form class="itens">
                                 <p class="texto-principal">CADASTRO</p>
                                 <img src="./frontend/images/Logo.svg" alt="logo">
                                 <!-- Caixas de entrada -->
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                    <input type="email" id="cadastroEmail" class="form-control form-control-sm"
-                                        placeholder="Email" />
+                                    <!-- Label escondido visualmente -->
+                                    <label for="usuarioCadastroInput" class="col-form-label visually-hidden">Email</label>
+                                    <input type="email" id="usuarioCadastroInput" class="form-control"
+                                        placeholder="Email" aria-label="Email" />
                                 </div>
+
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                    <input type="password" id="cadastroPassword" class="form-control form-control-sm"
-                                        placeholder="Senha" />
+                                    <!-- Label escondido visualmente -->
+                                    <label for="usuarioPasswordInput" class="col-form-label visually-hidden">Senha</label>
+                                    <input type="password" id="usuarioPasswordInput" class="form-control"
+                                        placeholder="Senha" aria-label="Password" />
+                                        
                                     <button class="btn btn-outline-secondary" type="button" id="toggleCadastroPassword">
                                         <i class="fas fa-eye" id="cadastroEyeIcon"></i>
                                     </button>
                                 </div>
 
                                 <!-- Btn Cadastro -->
-                                <button type="submit" class="my-login-btnEntrar" id="botao-cadastrar">Cadastrar</button>
+                                <button onclick="cadastrarUsuario()" type="button" class="my-login-btnEntrar" id="botao-cadastrar">Cadastrar</button>
 
                                 <!-- Linha horizontal -->
                                 <hr class="my-login-hr">
@@ -170,7 +188,7 @@
                         <!-- Coluna da imagem -->
 
                         <div class="col-md-6 d-none d-md-block">
-                            <img src="./frontend/images/Imagem.svg" alt="imagem-login" >
+                            <img src="./frontend/images/Imagem.svg" alt="imagem-login">
                         </div>
                     </div>
                 </div>
@@ -201,7 +219,8 @@
                         <!-- Itens Menu -->
                         <div class="collapse navbar-collapse" id="navbarNavDropdown">
                             <ul class="navbar-nav ms-auto">
-                                <li class="nav-item"><a class="my-menu-links" aria-current="page" href="index.html">Home</a> </li>
+                                <li class="nav-item"><a class="my-menu-links" aria-current="page"
+                                        href="index.html">Home</a> </li>
                                 <li class="nav-item"><a class="my-menu-links" aria-current="page" href="#">Lembretes</a>
                                 </li>
                                 <li class="nav-item"><a class="my-menu-links" aria-current="page"
@@ -218,19 +237,22 @@
                                 <!-- Btn Login -->
                                 <a href="#" class="my-menu-btnPerfil mx-2" data-bs-toggle="modal"
                                     data-bs-target="#loginModal">
-                                    <i class="fa-solid fa-user" style="color: white;"></i><span style="font-weight: 500;">
+                                    <i class="fa-solid fa-user" style="color: white;"></i><span
+                                        style="font-weight: 500;">
                                         Login</span>
                                 </a>
 
                                 <!-- Btn Perfil -->
                                 <a href="#" class="my-menu-btnPerfil mx-2" data-bs-toggle="modal"
                                     data-bs-target="#perfilModal">
-                                    <i class="fa-solid fa-user" style="color: white;"></i><span style="font-weight: 500;">
+                                    <i class="fa-solid fa-user" style="color: white;"></i><span
+                                        style="font-weight: 500;">
                                         Perfil</span>
                                 </a>
 
                                 <!-- Btn - Sair -->
-                                <a href="#" class=""> <img src="frontend/images/iconeMenuX.svg" alt="" height="24px"></a>
+                                <a href="#" class=""> <img src="frontend/images/iconeMenuX.svg" alt=""
+                                        height="24px"></a>
                             </div>
                         </div>
                     </div>
@@ -248,14 +270,17 @@
                     <h3 id="main-space-h3"><span id="site">Site</span> sobre Fisioterapia</h3>
 
                     <div id="main-p">
-                        <p>Nosso site foi criado para promover saúde, bem-estar e qualidade de vida através de informações e serviços voltados ao cuidado com o corpo.</p>
-                        <p>Aqui, você encontrará tudo o que precisa para entender mais sobre a importância da fisioterapia e como ela pode transformar a sua qualidade de vida.</p>
+                        <p>Nosso site foi criado para promover saúde, bem-estar e qualidade de vida através de
+                            informações e serviços voltados ao cuidado com o corpo.</p>
+                        <p>Aqui, você encontrará tudo o que precisa para entender mais sobre a importância da
+                            fisioterapia e como ela pode transformar a sua qualidade de vida.</p>
                     </div>
 
                     <button id="btn-lembretes">Lembretes</button>
                 </div>
                 <div class="col col-lg-6 col-xl-6 col-xxl-6">
-                    <img src="frontend/images/Imagem-1.png" id="imagem-1" alt="Imagem de uma profissional de fisioterapia alongando a paciente deitada sobre a maca">
+                    <img src="frontend/images/Imagem-1.png" id="imagem-1"
+                        alt="Imagem de uma profissional de fisioterapia alongando a paciente deitada sobre a maca">
                 </div>
             </div>
         </div>
