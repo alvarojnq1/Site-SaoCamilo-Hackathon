@@ -13,9 +13,6 @@ require('dotenv').config();
 app.use(express.json())
 app.use(cors())
 
-// endPoint
-const port = 3000
-
 // model Usuario
 const Usuario = mongoose.model("Usuario", mongoose.Schema({
     login: {type: String, required: true, unique: true},
@@ -73,7 +70,7 @@ app.post("/login", async (req, res) => {
 })
 
 // http://localhost:port/
-app.listen(port, () => {
+app.listen(3000, () => {
     try {
         conectarAoMongoDB()
         console.log("up and running");
