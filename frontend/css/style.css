@@ -11,6 +11,31 @@
     --cinza: #7f7f7f;
 }
 
+/* Garantir que o body ocupe toda a altura da tela */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Usar flexbox para estruturar o layout */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Empurrar o conteúdo principal para cima */
+main {
+    flex: 1;
+}
+
+/* Rodapé fixo no final */
+footer {
+    background-color: #000000;
+    color: var(--cinza);
+    padding: 0.5%;
+    text-align: center;
+}
+
 .main-space {
     margin-bottom: 6%;
 }
@@ -76,3 +101,9 @@ h3 > #site {
     margin: 0 auto;
     margin-top: 1%;
 }
+
+.icone {
+    display: none;
+}
+
+
