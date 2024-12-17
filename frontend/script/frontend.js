@@ -3,28 +3,46 @@
 const protocolo = `http://`
 const baseURL = `localhost:3000`
 
-// Signup Users
 async function cadastrarUsuario() {
     let usuarioCadastroInput = document.querySelector("#usuarioCadastroInput");
     let passwordCadastroInput = document.querySelector("#usuarioPasswordInput");
     let usuarioCadastro = usuarioCadastroInput.value
     let passwordCadastro = passwordCadastroInput.value 
     let nomePaciente = usuarioNomeInput.value
+
+    // Função para capitalizar o nome (primeira letra de cada palavra maiúscula)
+    const formatarNome = (nome) => {
+        return nome
+            .split(" ") // Separa o nome em partes (por espaço)
+            .map(palavra => palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase()) // Capitaliza cada palavra
+            .join(" "); // Junta as palavras de volta com espaços
+    }
+
+    // Capitaliza o nome do paciente antes de enviar ao backend
+    nomePaciente = formatarNome(nomePaciente);
+
     if (usuarioCadastro && passwordCadastro) {
         try {
-            const cadastroEndpoint = "/signup"
-            const URLCompleta = `${protocolo}${baseURL}${cadastroEndpoint}`
-            // Remover o tipo e sempre cadastrar como paciente
+            const cadastroEndpoint = "/signup";
+            const URLCompleta = `${protocolo}${baseURL}${cadastroEndpoint}`;
+
+            // Envia o nome já formatado (com a primeira letra de cada palavra maiúscula)
             await axios.post(URLCompleta, {
                 login: usuarioCadastro, 
                 password: passwordCadastro,
                 nome: nomePaciente
-            }) 
-            usuarioCadastroInput.value = ""
-            passwordCadastroInput.value = ""
-            usuarioNomeInput.value = ""
+            }); 
+
+            // Limpa os campos
+            usuarioCadastroInput.value = "";
+            passwordCadastroInput.value = "";
+            usuarioNomeInput.value = "";
+
+            // Exibe alerta de sucesso
             exibirAlerta(".alert-modal-cadastro", "Usuário cadastrado com sucesso", ["show", "alert-success"], ["d-none", "alert-danger"], 2000);
-            // ocultartModal("#cadastroModal", 1000)
+            
+            // Ocultar modal (se necessário)
+            // ocultartModal("#cadastroModal", 1000);
         } catch (error) {
             exibirAlerta(".alert-modal-cadastro", "Erro ao cadastrar usuário", ["show", "alert-danger"], ["d-none", "alert-success"], 2000);
         }
@@ -32,6 +50,7 @@ async function cadastrarUsuario() {
         exibirAlerta(".alert-modal-cadastro", "Preencha todos os campos", ["show", "alert-danger"], ["d-none", "alert-success"], 2000);
     }
 }
+
 
 const tipoUsuario = response.data.tipo;
 
@@ -72,6 +91,13 @@ async function fazerLogin() {
 
             // Exibe o ícone para pacientes após login bem-sucedido
             if (response.data && response.data.token) {
+
+                const { nome, tipo } = response.data;
+
+                // Alterar o título do modal para incluir o nome do usuário
+                const tituloModal = document.getElementById('perfilModalLabel');
+                tituloModal.textContent = `Olá ${nome}!`;  // Atualiza com o nome do usuário
+
                 // Verifica se o tipo de usuário é paciente
                 if (response.data.tipo === "paciente") {
                     // Exibe o elemento fisioterapeutas
@@ -89,12 +115,31 @@ async function fazerLogin() {
                     // Exibir o perfil
                     document.getElementById("perfil-nav").classList.add("show");
                     document.getElementById("perfil-nav").classList.remove("d-none");
+                    // Exibir exercicios
+                    document.getElementById("exercicios-nav").classList.add("show")
+                    document.getElementById("exercicios-nav").classList.remove("d-none")
                 }else if (response.data.tipo === "medico"){
-                    // tratar fisioterapeuta da nav-bar
-                    document.getElementById("icone-medico").style.display = "inline"; // Torna o ícone visível
-                    document.getElementById("botao-logout").style.display = "inline";
-                    document.getElementById("botao-login").style.display = "none";
-                    document.getElementById("gerenciamento-nav").style.display="inline";
+                    // Exibe o elemento pacientes
+                    document.getElementById("pacientes-nav").classList.add("show");
+                    document.getElementById("pacientes-nav").classList.remove("d-none");
+                    // Exibir icone paciente
+                    document.getElementById("icone-medico").classList.add("show");
+                    document.getElementById("icone-medico").classList.remove("d-none");
+                    // Exibir botão de logout
+                    document.getElementById("botao-logout").classList.add("show");
+                    document.getElementById("botao-logout").classList.remove("d-none");
+                    // Esconder botão de login
+                    document.getElementById("botao-login").classList.add("d-none");
+                    document.getElementById("botao-login").classList.remove("show");
+                    // Exibir o perfil
+                    document.getElementById("perfil-nav").classList.add("show");
+                    document.getElementById("perfil-nav").classList.remove("d-none");
+                    // Exibir exercicios
+                    document.getElementById("criar-lembretes-nav").classList.add("show")
+                    document.getElementById("criar-lembretes-nav").classList.remove("d-none")
+                    //Exibir aba pacientes
+                    document.getElementById("pacientes-nav").classList.add("show")
+                    document.getElementById("pacientes-nav").classList.remove("d-none")
                 }
             }
 
@@ -154,6 +199,8 @@ function ocultartModal(seletor, timeout) {
 
 
 // --------------------------------------------- Outras Funcionalidades ---------------------------------------------------
+
+
 function alternarVisualizacaoSenha(inputId, iconId) {
     const passwordInput = document.getElementById(inputId);
     const eyeIcon = document.getElementById(iconId);
