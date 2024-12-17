@@ -33,7 +33,6 @@ async function cadastrarUsuario() {
     }
 }
 
-
 const tipoUsuario = response.data.tipo;
 
 // Função para personalizar a nav-bar
@@ -75,10 +74,23 @@ async function fazerLogin() {
             if (response.data && response.data.token) {
                 // Verifica se o tipo de usuário é paciente
                 if (response.data.tipo === "paciente") {
-                    document.getElementById("icone-paciente").style.display = "inline"; // Torna o ícone visível
-                    document.getElementById("botao-logout").style.display = "inline";
-                    document.getElementById("botao-login").style.display = "none";
+                    // Exibe o elemento fisioterapeutas
+                    document.getElementById("fisioterapeutas-nav").classList.add("show");
+                    document.getElementById("fisioterapeutas-nav").classList.remove("d-none");
+                    // Exibir icone paciente
+                    document.getElementById("icone-paciente").classList.add("show");
+                    document.getElementById("icone-paciente").classList.remove("d-none");
+                    // Exibir botão de logout
+                    document.getElementById("botao-logout").classList.add("show");
+                    document.getElementById("botao-logout").classList.remove("d-none");
+                    // Esconder botão de login
+                    document.getElementById("botao-login").classList.add("d-none");
+                    document.getElementById("botao-login").classList.remove("show");
+                    // Exibir o perfil
+                    document.getElementById("perfil-nav").classList.add("show");
+                    document.getElementById("perfil-nav").classList.remove("d-none");
                 }else if (response.data.tipo === "medico"){
+                    // tratar fisioterapeuta da nav-bar
                     document.getElementById("icone-medico").style.display = "inline"; // Torna o ícone visível
                     document.getElementById("botao-logout").style.display = "inline";
                     document.getElementById("botao-login").style.display = "none";
@@ -95,6 +107,7 @@ async function fazerLogin() {
         exibirAlerta(".alert-modal-login", "Preencha todos os campos", ["show", "alert-danger"], ["d-none", "alert-success"], 2000);
     }
 }
+
 
 function logout() {
     // Remover o token de autenticação do localStorage
