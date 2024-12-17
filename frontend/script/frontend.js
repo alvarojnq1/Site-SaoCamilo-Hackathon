@@ -3,6 +3,31 @@
 const protocolo = `http://`
 const baseURL = `localhost:3000`
 
+// Função para verificar se o usuário está logado e configurar a navbar após o refresh
+document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem('token'); // Recupera o token armazenado no localStorage
+    const tipo = localStorage.getItem('tipo'); // Recupera o tipo de usuário armazenado no localStorage
+
+    if (token && tipo) {
+        // Se o token e o tipo estiverem presentes, o usuário está logado
+        // Configura a navbar com base no tipo de usuário
+        configurarNavbar(tipo);
+        
+        // Aqui você pode fazer qualquer outra coisa necessária, como atualizar o nome do usuário na interface
+        const nomeUsuario = localStorage.getItem('nome');
+        if (nomeUsuario) {
+            const tituloModal = document.getElementById('perfilModalLabel');
+            tituloModal.textContent = `Olá, ${nomeUsuario}!`;  // Atualiza com o nome do usuário
+        }
+    } else {
+        // Se o token não estiver presente, o usuário não está logado, e você pode redirecionar ou mostrar o login
+        // Por exemplo, esconder elementos do perfil ou exibir o botão de login
+        document.getElementById("botao-login").classList.remove("d-none");
+        document.getElementById("botao-login").classList.add("show");
+    }
+});
+
+
 async function cadastrarUsuario() {
     let usuarioCadastroInput = document.querySelector("#usuarioCadastroInput");
     let passwordCadastroInput = document.querySelector("#usuarioPasswordInput");
@@ -69,6 +94,31 @@ function customizarNavBar(tipoUsuario) {
   customizarNavBar(userType);
 
 // Login Users
+// Função para verificar se o usuário está logado e configurar a navbar após o refresh
+window.onload = () => {
+    const token = localStorage.getItem('token'); // Recupera o token armazenado no localStorage
+    const tipo = localStorage.getItem('tipo'); // Recupera o tipo de usuário armazenado no localStorage
+
+    if (token && tipo) {
+        // Se o token e o tipo estiverem presentes, o usuário está logado
+        // Configura a navbar com base no tipo de usuário
+        configurarNavbar(tipo);
+        
+        // Aqui você pode fazer qualquer outra coisa necessária, como atualizar o nome do usuário na interface
+        const nomeUsuario = localStorage.getItem('nome');
+        if (nomeUsuario) {
+            const tituloModal = document.getElementById('perfilModalLabel');
+            tituloModal.textContent = `Olá, ${nomeUsuario}!`;  // Atualiza com o nome do usuário
+        }
+    } else {
+        // Se o token não estiver presente, o usuário não está logado, e você pode redirecionar ou mostrar o login
+        // Por exemplo, esconder elementos do perfil ou exibir o botão de login
+        document.getElementById("botao-login").classList.remove("d-none");
+        document.getElementById("botao-login").classList.add("show");
+    }
+};
+
+// Login Users
 async function fazerLogin() {
     let usuarioLoginInput = document.querySelector("#usuarioLoginInput");
     let passwordLoginInput = document.querySelector("#passwordLoginInput");
@@ -85,62 +135,24 @@ async function fazerLogin() {
                 password: passwordLogin
             });
 
-            console.log(response.data);
             usuarioLoginInput.value = "";
             passwordLoginInput.value = "";
 
-            // Exibe o ícone para pacientes após login bem-sucedido
+            // Se a resposta contiver o token, armazene o token no localStorage
             if (response.data && response.data.token) {
-
                 const { nome, tipo } = response.data;
+                // Armazenar token e outras informações no localStorage
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('tipo', tipo); // Armazenando o tipo de usuário
+                localStorage.setItem('nome', nome); // Armazenando o nome do usuário
+                console.log("Token armazenado com sucesso!");
 
                 // Alterar o título do modal para incluir o nome do usuário
                 const tituloModal = document.getElementById('perfilModalLabel');
-                tituloModal.textContent = `Olá ${nome}!`;  // Atualiza com o nome do usuário
+                tituloModal.textContent = `Olá, ${nome}!`;  // Atualiza com o nome do usuário
 
-                // Verifica se o tipo de usuário é paciente
-                if (response.data.tipo === "paciente") {
-                    // Exibe o elemento fisioterapeutas
-                    document.getElementById("fisioterapeutas-nav").classList.add("show");
-                    document.getElementById("fisioterapeutas-nav").classList.remove("d-none");
-                    // Exibir icone paciente
-                    document.getElementById("icone-paciente").classList.add("show");
-                    document.getElementById("icone-paciente").classList.remove("d-none");
-                    // Exibir botão de logout
-                    document.getElementById("botao-logout").classList.add("show");
-                    document.getElementById("botao-logout").classList.remove("d-none");
-                    // Esconder botão de login
-                    document.getElementById("botao-login").classList.add("d-none");
-                    document.getElementById("botao-login").classList.remove("show");
-                    // Exibir o perfil
-                    document.getElementById("perfil-nav").classList.add("show");
-                    document.getElementById("perfil-nav").classList.remove("d-none");
-                    // Exibir exercicios
-                    document.getElementById("exercicios-nav").classList.add("show")
-                    document.getElementById("exercicios-nav").classList.remove("d-none")
-                }else if (response.data.tipo === "medico"){
-                    // Exibe o elemento pacientes
-                    document.getElementById("pacientes-nav").classList.add("show");
-                    document.getElementById("pacientes-nav").classList.remove("d-none");
-                    // Exibir icone paciente
-                    document.getElementById("icone-medico").classList.add("show");
-                    document.getElementById("icone-medico").classList.remove("d-none");
-                    // Exibir botão de logout
-                    document.getElementById("botao-logout").classList.add("show");
-                    document.getElementById("botao-logout").classList.remove("d-none");
-                    // Esconder botão de login
-                    document.getElementById("botao-login").classList.add("d-none");
-                    document.getElementById("botao-login").classList.remove("show");
-                    // Exibir o perfil
-                    document.getElementById("perfil-nav").classList.add("show");
-                    document.getElementById("perfil-nav").classList.remove("d-none");
-                    // Exibir exercicios
-                    document.getElementById("criar-lembretes-nav").classList.add("show")
-                    document.getElementById("criar-lembretes-nav").classList.remove("d-none")
-                    //Exibir aba pacientes
-                    document.getElementById("pacientes-nav").classList.add("show")
-                    document.getElementById("pacientes-nav").classList.remove("d-none")
-                }
+                // Chama a função para configurar a navbar com base no tipo de usuário
+                configurarNavbar(tipo);
             }
 
             exibirAlerta(".alert-modal-login", "Login efetuado com sucesso!", ["show", "alert-success"], ["d-none", "alert-danger"], 2000);
@@ -154,26 +166,94 @@ async function fazerLogin() {
 }
 
 
-function logout() {
-    // Remover o token de autenticação do localStorage
-    localStorage.removeItem('token');  // Ou sessionStorage, dependendo de onde você armazena o token
-
-    // Ocultar o ícone do paciente e médico, e o botão de logout
-    document.getElementById("icone-paciente").style.display = "none";
-    document.getElementById("icone-medico").style.display = "none";
-    document.getElementById("botao-logout").style.display = "none";
-
-    // Mostrar o botão de login
-    document.getElementById("botao-login").style.display = "inline";
-
-    
-
-    // Opcional: Exibir um alerta de sucesso
-    exibirAlerta(".alert-modal-login", "Deslogado com sucesso!", ["show", "alert-success"], ["d-none", "alert-danger"], 2000);
-
-    // Redirecionar para a página de login
-    window.location.href = './index.html';  // Ou para qualquer outra URL que seja a página de login do seu site
+function configurarNavbar(tipo) {
+    if (tipo === "paciente") {
+        // Exibe o elemento fisioterapeutas
+        document.getElementById("fisioterapeutas-nav").classList.add("show");
+        document.getElementById("fisioterapeutas-nav").classList.remove("d-none");
+        // Exibir icone paciente
+        document.getElementById("icone-paciente").classList.add("show");
+        document.getElementById("icone-paciente").classList.remove("d-none");
+        // Exibir botão de logout
+        document.getElementById("botao-logout").classList.add("show");
+        document.getElementById("botao-logout").classList.remove("d-none");
+        // Esconder botão de login
+        document.getElementById("botao-login").classList.add("d-none");
+        document.getElementById("botao-login").classList.remove("show");
+        // Exibir o perfil
+        document.getElementById("perfil-nav").classList.add("show");
+        document.getElementById("perfil-nav").classList.remove("d-none");
+        // Exibir exercicios
+        document.getElementById("exercicios-nav").classList.add("show");
+        document.getElementById("exercicios-nav").classList.remove("d-none");
+    } else if (tipo === "medico") {
+        // Exibe o elemento pacientes
+        document.getElementById("pacientes-nav").classList.add("show");
+        document.getElementById("pacientes-nav").classList.remove("d-none");
+        // Exibir icone medico
+        document.getElementById("icone-medico").classList.add("show");
+        document.getElementById("icone-medico").classList.remove("d-none");
+        // Exibir botão de logout
+        document.getElementById("botao-logout").classList.add("show");
+        document.getElementById("botao-logout").classList.remove("d-none");
+        // Esconder botão de login
+        document.getElementById("botao-login").classList.add("d-none");
+        document.getElementById("botao-login").classList.remove("show");
+        // Exibir o perfil
+        document.getElementById("perfil-nav").classList.add("show");
+        document.getElementById("perfil-nav").classList.remove("d-none");
+        // Exibir exercicios
+        document.getElementById("criar-lembretes-nav").classList.add("show");
+        document.getElementById("criar-lembretes-nav").classList.remove("d-none");
+        // Exibir aba pacientes
+        document.getElementById("pacientes-nav").classList.add("show");
+        document.getElementById("pacientes-nav").classList.remove("d-none");
+    }
 }
+
+
+// Validação do Token no Frontend (quando a página for recarregada)
+// Função para verificar se o usuário está logado e configurar a navbar após o refresh
+window.onload = () => {
+    const token = localStorage.getItem('token'); // Recupera o token armazenado no localStorage
+    const tipo = localStorage.getItem('tipo'); // Recupera o tipo de usuário armazenado no localStorage
+
+    if (token && tipo) {
+        // Se o token e o tipo estiverem presentes, o usuário está logado
+        // Configura a navbar com base no tipo de usuário
+        configurarNavbar(tipo);
+        
+        // Aqui você pode fazer qualquer outra coisa necessária, como atualizar o nome do usuário na interface
+        const nomeUsuario = localStorage.getItem('nome');
+        if (nomeUsuario) {
+            const tituloModal = document.getElementById('perfilModalLabel');
+            tituloModal.textContent = `Olá, ${nomeUsuario}!`;  // Atualiza com o nome do usuário
+        }
+    } else {
+        // Se o token não estiver presente, o usuário não está logado, e você pode redirecionar ou mostrar o login
+        // Por exemplo, esconder elementos do perfil ou exibir o botão de login
+        document.getElementById("botao-login").classList.remove("d-none");
+        document.getElementById("botao-login").classList.add("show");
+    }
+};
+
+// Função para realizar logout
+function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('tipo');
+    localStorage.removeItem('nome');
+    
+    // Exibir o botão de login novamente e esconder o conteúdo do perfil
+    document.getElementById("botao-login").classList.remove("d-none");
+    document.getElementById("botao-login").classList.add("show");
+    
+    document.getElementById("botao-logout").classList.add("d-none");
+    document.getElementById("botao-logout").classList.remove("show");
+
+    // Você pode redirecionar o usuário para a página de login ou para uma página inicial
+    window.location.href = "../../index.html"; // Por exemplo, redirecionar para o login
+}
+
 
 
 

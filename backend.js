@@ -70,8 +70,6 @@ app.post("/signup", async (req, res) => {
     }
 });
 
-
-
 // Login
 app.post("/login", async (req, res) => {
     const { login, password } = req.body;
@@ -108,7 +106,7 @@ app.post("/login", async (req, res) => {
     // Cria o token e inclui o tipo
     const token = jwt.sign(
         { login: usuario.login, tipo: tipoUsuario },
-        "chave-secreta",
+        process.env.JWT_SECRET, // Use a chave secreta do arquivo .env
         { expiresIn: "1h" }
     );
 
@@ -118,7 +116,21 @@ app.post("/login", async (req, res) => {
     res.status(200).json({ token, tipo: tipoUsuario, nome});
 });
 
+// Validação do Token
+app.get("/validate-token", (req, res) => {
+    const token = req.headers['authorization']?.split(' ')[1];
 
+    if (!token) {
+        return res.status(401).json({ error: "Token não fornecido" });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        return res.status(200).json({ message: "token válido", user: decoded });
+    } catch (error) {
+        return res.status(401).json({ error: "Token inválido ou expirado" });
+    }
+});
 
 // http://localhost:3000/
 app.listen(3000, () => {
