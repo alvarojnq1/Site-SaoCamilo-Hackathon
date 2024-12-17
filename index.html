@@ -72,13 +72,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
+                <div class="d-none alert alert-dismissible fade alert-modal-login custom-alert" role="alert">
+                    
+                </div>
+
                 <div class="modal-body">
                     <div class="row">
                         <!-- Coluna do formulário -->
                         <div class="col-md-6 d-flex align-items-center justify-content-center" id="containerzao">
-                            <div class="show alert alert-dismissible fade alert-modal-cadastro" role="alert">
-
-                            </div>
 
                             <form class="itens">
                                 <p class="texto-principal">LOGIN</p>
@@ -86,12 +87,14 @@
                                 <!-- Caixas de entrada -->
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                    <input type="email" id="loginEmail" class="form-control form-control-sm"
+                                    <label for="usuarioLoginInput" class="col-form-label visually-hidden">Email</label>
+                                    <input type="email" id="usuarioLoginInput" class="form-control form-control-sm"
                                         placeholder="Email" />
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                    <input type="password" id="loginPassword" class="form-control form-control-sm"
+                                    <label for="passwordLoginInput" class="col-form-label visually-hidden">Senha</label>
+                                    <input type="password" id="passwordLoginInput" class="form-control form-control-sm"
                                         placeholder="Senha" />
                                     <button class="btn btn-outline-secondary" type="button" id="toggleLoginPassword">
                                         <i class="fas fa-eye" id="loginEyeIcon"></i>
@@ -99,7 +102,7 @@
                                 </div>
 
                                 <!-- Btn Entrar -->
-                                <button type="submit" class="my-login-btnEntrar" id="botao-entrar">Entrar</button>
+                                <button onclick="fazerLogin()" type="button" class="my-login-btnEntrar" id="botao-entrar">Entrar</button>
 
                                 <!-- Linha horizontal -->
                                 <hr class="my-login-hr">
@@ -136,14 +139,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
+                <div class="d-none alert alert-dismissible fade alert-modal-cadastro" role="alert">
+
+                </div>
+
                 <div class="modal-body">
                     <div class="row">
 
                         <!-- Coluna do formulário -->
                         <div class="col-md-6 d-flex align-items-center justify-content-center">
-                            <div class="d-none alert alert-dismissible fade alert-modal-cadastro" role="alert">
-
-                            </div>
 
                             <form class="itens">
                                 <p class="texto-principal">CADASTRO</p>

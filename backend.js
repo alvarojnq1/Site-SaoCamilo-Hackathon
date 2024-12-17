@@ -1,5 +1,4 @@
 const express = require("express")
-const axios = require('axios')
 const cors = require("cors")
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
@@ -69,7 +68,7 @@ app.post("/login", async (req, res) => {
     res.status(200).json({token: token})
 })
 
-// http://localhost:port/
+// http://localhost:3000/
 app.listen(3000, () => {
     try {
         conectarAoMongoDB()
