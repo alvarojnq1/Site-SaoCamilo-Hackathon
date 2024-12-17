@@ -38,6 +38,15 @@ h3 > #site {
     border-radius: 10px;
 }
 
+#btn-lembretes:hover {
+    animation-name: anim-btn-lembretes;
+    animation-duration: 1s;
+}
+
+@keyframes anim-btn-lembretes {
+    50%{transform: scale(1.1, 1.1);}
+}
+
 #imagem-1 {
     width: 80%;
     height: auto;
@@ -59,4 +68,11 @@ h3 > #site {
 
 .footer-cont p {
     margin-top: 5%;
+}
+
+.custom-alert {
+    width: 70%;
+    max-width: 70%; 
+    margin: 0 auto;
+    margin-top: 1%;
 }

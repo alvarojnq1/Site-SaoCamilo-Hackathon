@@ -18,35 +18,41 @@ async function cadastrarUsuario() {
             }) 
             usuarioCadastroInput.value = ""
             passwordCadastroInput.value = ""
-            exibirAlerta(".alert-modal-cadastro", "Usuário cadastrado com sucesso", ["show", "alerta_success"], ["d-none", "alerta_danger"], 2000);
-            ocultartModal("#cadastroModal", 1000)
+            exibirAlerta(".alert-modal-cadastro", "Usuário cadastrado com sucesso", ["show", "alert-success"], ["d-none", "alert-danger"], 2000);
+            // ocultartModal("#cadastroModal", 1000)
         } catch (error) {
-            exibirAlerta(".alert-modal-cadastro", "Erro ao cadastrar usuário", ["show", "alerta_danger"], ["d-none", "alerta_success"], 2000);
-            ocultartModal("#cadastroModal", 1000)
+            exibirAlerta(".alert-modal-cadastro", "Erro ao cadastrar usuário", ["show", "alert-danger"], ["d-none", "alert-success"], 2000);
         }
     } else {
-        exibirAlerta(".alert-modal-cadastro", "Preencha todos os campos", ["show", "alerta_danger"], ["d-none", "alerta_success"], 2000);
+        exibirAlerta(".alert-modal-cadastro", "Preencha todos os campos", ["show", "alert-danger"], ["d-none", "alert-success"], 2000);
     }
 }
 
 
 // Login Users
 async function fazerLogin() {
-    let usuarioLoginInput = document.querySelector(".#")
-    let passwordLoginInput = document.querySelector(".#")
+    let usuarioLoginInput = document.querySelector("#usuarioLoginInput")
+    let passwordLoginInput = document.querySelector("#passwordLoginInput")
     let usuarioLogin = usuarioLoginInput.value
     let passwordLogin = passwordLoginInput.value
     if (usuarioLogin && passwordLogin) {
         try {
+            const loginEndPoint = "/login"
+            const URLCompleta = `${protocolo}${baseURL}${loginEndPoint}`
+            // jaja adicionamos
+            const response = await axios.post(URLCompleta, {login: usuarioLogin, password: passwordLogin})
+            // jaja tiramos
+            console.log(response.data)
             usuarioLoginInput.value = ""
             passwordLoginInput.value = ""
-            exibirAlerta(".#", "Usuário cadastrado com sucesso", ["show", "classe_alerta_success"], ["d-none", "classe_alerta_danger"], 2000)
+            exibirAlerta(".alert-modal-login", "Usuário cadastrado com sucesso", ["show", "alert-success"], ["d-none", "alert-danger"], 2000)
+            ocultartModal("#loginModal", 1000)
         } catch (e) {
-            exibirAlerta(".#", "Erro ao cadastrar o usuário", ["show", "classe_alerta_danger"], ["d-none", "classe_alerta_success"], 2000)
+            exibirAlerta(".alert-modal-login", "Erro ao fazer login", ["show", "alert-danger"], ["d-none", "alert-success"], 2000)
         }
 
     } else {
-        exibirAlerta(".#", "Preencha todos os campos", ["show", "classe_alerta_danger"], ["d-none", "classe_alerta_success"], 2000)
+        exibirAlerta(".alert-modal-login", "Preencha todos os campos", ["show", "alert-danger"], ["d-none", "alert-success"], 2000)
     }
 }
 
