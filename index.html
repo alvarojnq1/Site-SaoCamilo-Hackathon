@@ -73,7 +73,7 @@
                 </div>
 
                 <div class="d-none alert alert-dismissible fade alert-modal-login custom-alert" role="alert">
-                    
+
                 </div>
 
                 <div class="modal-body">
@@ -91,18 +91,23 @@
                                     <input type="email" id="usuarioLoginInput" class="form-control form-control-sm"
                                         placeholder="Email" />
                                 </div>
+                                <!-- Campo de senha para login -->
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                     <label for="passwordLoginInput" class="col-form-label visually-hidden">Senha</label>
-                                    <input type="password" id="passwordLoginInput" class="form-control form-control-sm"
-                                        placeholder="Senha" />
-                                    <button class="btn btn-outline-secondary" type="button" id="toggleLoginPassword">
+                                    <input type="password" id="passwordLoginInput" class="form-control"
+                                        placeholder="Senha" aria-label="Password" />
+
+                                    <button class="btn btn-outline-secondary" type="button" id="toggleLoginPassword"
+                                        onclick="alternarVisualizacaoSenha('passwordLoginInput', 'loginEyeIcon')">
                                         <i class="fas fa-eye" id="loginEyeIcon"></i>
                                     </button>
                                 </div>
 
+
                                 <!-- Btn Entrar -->
-                                <button onclick="fazerLogin()" type="button" class="my-login-btnEntrar" id="botao-entrar">Entrar</button>
+                                <button onclick="fazerLogin()" type="button" class="my-login-btnEntrar"
+                                    id="botao-entrar">Entrar</button>
 
                                 <!-- Linha horizontal -->
                                 <hr class="my-login-hr">
@@ -156,25 +161,28 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                     <!-- Label escondido visualmente -->
-                                    <label for="usuarioCadastroInput" class="col-form-label visually-hidden">Email</label>
+                                    <label for="usuarioCadastroInput"
+                                        class="col-form-label visually-hidden">Email</label>
                                     <input type="email" id="usuarioCadastroInput" class="form-control"
                                         placeholder="Email" aria-label="Email" />
                                 </div>
 
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                    <!-- Label escondido visualmente -->
-                                    <label for="usuarioPasswordInput" class="col-form-label visually-hidden">Senha</label>
+                                    <label for="usuarioPasswordInput"
+                                        class="col-form-label visually-hidden">Senha</label>
                                     <input type="password" id="usuarioPasswordInput" class="form-control"
                                         placeholder="Senha" aria-label="Password" />
-                                        
-                                    <button class="btn btn-outline-secondary" type="button" id="toggleCadastroPassword">
+
+                                    <button class="btn btn-outline-secondary" type="button" id="toggleCadastroPassword"
+                                        onclick="alternarVisualizacaoSenha('usuarioPasswordInput', 'cadastroEyeIcon')">
                                         <i class="fas fa-eye" id="cadastroEyeIcon"></i>
                                     </button>
                                 </div>
 
                                 <!-- Btn Cadastro -->
-                                <button onclick="cadastrarUsuario()" type="button" class="my-login-btnEntrar" id="botao-cadastrar">Cadastrar</button>
+                                <button onclick="cadastrarUsuario()" type="button" class="my-login-btnEntrar"
+                                    id="botao-cadastrar">Cadastrar</button>
 
                                 <!-- Linha horizontal -->
                                 <hr class="my-login-hr">
@@ -229,21 +237,34 @@
                                 </li>
                                 <li class="nav-item"><a class="my-menu-links" aria-current="page"
                                         href="#">Fisioterapeutas</a></li>
+                                <li class="nav-item"><a class="my-menu-links" aria-current="page" style="display: none;"
+                                        id="gerenciamento-nav" href="#">Gerenciamento</a></li>
                             </ul>
 
                             <div class="my-menu-responsividadeIconesBotao">
                                 <!-- Btn - Paciente -->
-                                <span> <img src="frontend/images/iconeMenuPaciente.svg" alt="" class="mx-2"> </span>
+                                <span class="icone" id="icone-paciente"> <img
+                                        src="frontend/images/iconeMenuPaciente.svg" alt="" class="mx-2"> </span>
 
                                 <!-- Btn - Fisioterapeuta -->
-                                <span> <img src="frontend/images//iconeMenuFisioterapeuta.svg" alt=""> </span>
+                                <span class="icone" id="icone-medico"> <img
+                                        src="frontend/images//iconeMenuFisioterapeuta.svg" alt=""> </span>
 
                                 <!-- Btn Login -->
-                                <a href="#" class="my-menu-btnPerfil mx-2" data-bs-toggle="modal"
+                                <a href="#" class="my-menu-btnPerfil mx-2" id="botao-login" data-bs-toggle="modal"
                                     data-bs-target="#loginModal">
                                     <i class="fa-solid fa-user" style="color: white;"></i><span
                                         style="font-weight: 500;">
                                         Login</span>
+                                </a>
+
+                                <!-- Btn Logout -->
+                                <a href="#" class="my-menu-btnPerfil mx-2" id="botao-logout" style="display: none;"
+                                    onclick="logout()">
+                                    <i class="fa fa-sign-out" aria-hidden="true" style="color: white"></i>
+                                    <span style="font-weight: 500;">
+                                        Logout
+                                    </span>
                                 </a>
 
                                 <!-- Btn Perfil -->

@@ -13,8 +13,10 @@ async function cadastrarUsuario() {
         try {
             const cadastroEndpoint = "/signup"
             const URLCompleta = `${protocolo}${baseURL}${cadastroEndpoint}`
+            // Remover o tipo e sempre cadastrar como paciente
             await axios.post(URLCompleta, {
-                login: usuarioCadastro, password: passwordCadastro
+                login: usuarioCadastro, 
+                password: passwordCadastro
             }) 
             usuarioCadastroInput.value = ""
             passwordCadastroInput.value = ""
@@ -29,32 +31,75 @@ async function cadastrarUsuario() {
 }
 
 
+
 // Login Users
 async function fazerLogin() {
-    let usuarioLoginInput = document.querySelector("#usuarioLoginInput")
-    let passwordLoginInput = document.querySelector("#passwordLoginInput")
-    let usuarioLogin = usuarioLoginInput.value
-    let passwordLogin = passwordLoginInput.value
+    let usuarioLoginInput = document.querySelector("#usuarioLoginInput");
+    let passwordLoginInput = document.querySelector("#passwordLoginInput");
+    let usuarioLogin = usuarioLoginInput.value;
+    let passwordLogin = passwordLoginInput.value;
+
     if (usuarioLogin && passwordLogin) {
         try {
-            const loginEndPoint = "/login"
-            const URLCompleta = `${protocolo}${baseURL}${loginEndPoint}`
-            // jaja adicionamos
-            const response = await axios.post(URLCompleta, {login: usuarioLogin, password: passwordLogin})
-            // jaja tiramos
-            console.log(response.data)
-            usuarioLoginInput.value = ""
-            passwordLoginInput.value = ""
-            exibirAlerta(".alert-modal-login", "Usuário cadastrado com sucesso", ["show", "alert-success"], ["d-none", "alert-danger"], 2000)
-            ocultartModal("#loginModal", 1000)
-        } catch (e) {
-            exibirAlerta(".alert-modal-login", "Erro ao fazer login", ["show", "alert-danger"], ["d-none", "alert-success"], 2000)
-        }
+            const loginEndPoint = "/login";
+            const URLCompleta = `${protocolo}${baseURL}${loginEndPoint}`;
+            // Envia somente login e senha
+            const response = await axios.post(URLCompleta, {
+                login: usuarioLogin,
+                password: passwordLogin
+            });
 
+            console.log(response.data);
+            usuarioLoginInput.value = "";
+            passwordLoginInput.value = "";
+
+            // Exibe o ícone para pacientes após login bem-sucedido
+            if (response.data && response.data.token) {
+                // Verifica se o tipo de usuário é paciente
+                if (response.data.tipo === "paciente") {
+                    document.getElementById("icone-paciente").style.display = "inline"; // Torna o ícone visível
+                    document.getElementById("botao-logout").style.display = "inline";
+                    document.getElementById("botao-login").style.display = "none";
+                }else if (response.data.tipo === "medico"){
+                    document.getElementById("icone-medico").style.display = "inline"; // Torna o ícone visível
+                    document.getElementById("botao-logout").style.display = "inline";
+                    document.getElementById("botao-login").style.display = "none";
+                    document.getElementById("gerenciamento-nav").style.display="inline";
+                }
+            }
+
+            exibirAlerta(".alert-modal-login", "Login efetuado com sucesso!", ["show", "alert-success"], ["d-none", "alert-danger"], 2000);
+            ocultartModal("#loginModal", 1000);
+        } catch (e) {
+            exibirAlerta(".alert-modal-login", "Erro ao fazer login", ["show", "alert-danger"], ["d-none", "alert-success"], 2000);
+        }
     } else {
-        exibirAlerta(".alert-modal-login", "Preencha todos os campos", ["show", "alert-danger"], ["d-none", "alert-success"], 2000)
+        exibirAlerta(".alert-modal-login", "Preencha todos os campos", ["show", "alert-danger"], ["d-none", "alert-success"], 2000);
     }
 }
+
+function logout() {
+    // Remover o token de autenticação do localStorage
+    localStorage.removeItem('token');  // Ou sessionStorage, dependendo de onde você armazena o token
+
+    // Ocultar o ícone do paciente e médico, e o botão de logout
+    document.getElementById("icone-paciente").style.display = "none";
+    document.getElementById("icone-medico").style.display = "none";
+    document.getElementById("botao-logout").style.display = "none";
+
+    // Mostrar o botão de login
+    document.getElementById("botao-login").style.display = "inline";
+
+    
+
+    // Opcional: Exibir um alerta de sucesso
+    exibirAlerta(".alert-modal-login", "Deslogado com sucesso!", ["show", "alert-success"], ["d-none", "alert-danger"], 2000);
+
+    // Redirecionar para a página de login
+    window.location.href = './index.html';  // Ou para qualquer outra URL que seja a página de login do seu site
+}
+
+
 
 // função de exibir alerta
 function exibirAlerta(seletor, mensagem, classesToAdd, classesToRemove, timeout) {
@@ -78,6 +123,26 @@ function ocultartModal(seletor, timeout) {
 
 
 // --------------------------------------------- Outras Funcionalidades ---------------------------------------------------
+function alternarVisualizacaoSenha(inputId, iconId) {
+    const passwordInput = document.getElementById(inputId);
+    const eyeIcon = document.getElementById(iconId);
+    
+    // Verifica o tipo atual do campo de senha
+    if (passwordInput.type === 'password') {
+        // Se for "password", torna visível a senha
+        passwordInput.type = 'text';
+        eyeIcon.classList.remove('fa-eye');  // Remove o ícone de olho fechado
+        eyeIcon.classList.add('fa-eye-slash');  // Adiciona o ícone de olho aberto
+    } else {
+        // Se for "text", torna a senha oculta novamente
+        passwordInput.type = 'password';
+        eyeIcon.classList.remove('fa-eye-slash');  // Remove o ícone de olho aberto
+        eyeIcon.classList.add('fa-eye');  // Adiciona o ícone de olho fechado
+    }
+}
+
+
+
 
 function editarImagem() {
     document.getElementById('editImageSection').style.display = 'block';

@@ -12,10 +12,17 @@ require('dotenv').config();
 app.use(express.json())
 app.use(cors())
 
-// model Usuario
-const Usuario = mongoose.model("Usuario", mongoose.Schema({
+// model paciente
+const Paciente = mongoose.model("Paciente", mongoose.Schema({
     login: {type: String, required: true, unique: true},
-    password: {type: String, required: true}
+    password: {type: String, required: true},
+    tipo: {type: String, required: true}
+}))
+
+const Medico = mongoose.model("Medico", mongoose.Schema({
+    login: {type: String, required: true, unique: true},
+    password: {type: String, required: true},
+    tipo: {type: String, required: true}
 }))
 
 // Connecting to mondoDB
@@ -32,41 +39,81 @@ async function conectarAoMongoDB() {
 // signup
 app.post("/signup", async (req, res) => {
     try {
-        const { login } = req.body
-        const { password } = req.body
-        const criptografada = await bcrypt.hash(password, 10)
-        const usuario = new Usuario({
-            login: login,
-            password: criptografada
-        })
-        const respMongo = await usuario.save()
-        console.log(respMongo)
-        res.status(201).end()
-    } catch (error) {
-        console.log(error);
-        res.status(409).end()
-    }
-})
+        const { login, password } = req.body; // O tipo já não será enviado
 
-// login
+        // Verifica se os campos obrigatórios estão preenchidos
+        if (!login || !password) {
+            return res.status(400).json({ error: "Preencha todos os campos obrigatórios!" });
+        }
+
+        // Criptografa a senha
+        const senhaCriptografada = await bcrypt.hash(password, 10);
+
+        // Cria um usuário do tipo paciente automaticamente
+        const usuario = new Paciente({ 
+            login: login, 
+            password: senhaCriptografada,
+            tipo: "paciente" // Aqui o tipo é fixado como paciente
+        });
+
+        // Salva no MongoDB
+        const respMongo = await usuario.save();
+        console.log("Usuário cadastrado:", respMongo);
+
+        res.status(201).json({ message: "Usuário cadastrado com sucesso!" });
+    } catch (error) {
+        console.error("Erro ao cadastrar usuário:", error);
+        res.status(500).json({ error: "Erro ao cadastrar usuário." });
+    }
+});
+
+
+
+// Login
 app.post("/login", async (req, res) => {
-    const { login } = req.body    
-    const { password } = req.body
-    const u = await Usuario.findOne({ login })
-    if (!u) {
-        return res.status(401).json({mensagem: "login inválido"})
+    const { login, password } = req.body;
+
+    if (!login || !password) {
+        return res.status(400).json({ mensagem: "Preencha todos os campos obrigatórios!" });
     }
-    const senhaValida = await bcrypt.compare(password, u.password)
+
+    // Verifica se o usuário existe e qual é o tipo
+    let usuario;
+    let tipoUsuario = '';
+
+    usuario = await Paciente.findOne({ login });  // Verifica paciente
+    if (usuario) {
+        tipoUsuario = 'paciente';
+    } else {
+        usuario = await Medico.findOne({ login });  // Verifica médico
+        if (usuario) {
+            tipoUsuario = 'medico';
+        }
+    }
+
+    // Se o usuário não for encontrado
+    if (!usuario) {
+        return res.status(401).json({ mensagem: "Login inválido" });
+    }
+
+    // Verifica se a senha está correta
+    const senhaValida = await bcrypt.compare(password, usuario.password);
     if (!senhaValida) {
-        return res.status(401).json({mensagem: "senha inválida"}) 
+        return res.status(401).json({ mensagem: "Senha inválida" });
     }
+
+    // Cria o token e inclui o tipo
     const token = jwt.sign(
-        {login: login},
+        { login: usuario.login, tipo: tipoUsuario },
         "chave-secreta",
-        {expiresIn: "1h"}
-    )
-    res.status(200).json({token: token})
-})
+        { expiresIn: "1h" }
+    );
+
+    // Retorna o token e o tipo de usuário
+    res.status(200).json({ token, tipo: tipoUsuario });
+});
+
+
 
 // http://localhost:3000/
 app.listen(3000, () => {
