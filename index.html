@@ -224,7 +224,7 @@
                     <div class="container-fluid">
 
                         <!-- Logo -->
-                        <a href="#" class="my-menu-logoFormatacao">
+                        <a href="index.html" class="my-menu-logoFormatacao">
                             <img class="my-menu-logo" src="frontend/images/Logo.svg" alt="Logo FisioFit">
                             <span class="my-menu-logoFisio">Fisio</span><span class="my-menu-logoFit">Fit</span>
                         </a>
@@ -249,21 +249,21 @@
                                         href="#">Fisioterapeutas</a></li>
                                 <li class="nav-item d-none" id="pacientes-nav"><a class="my-menu-links" aria-current="page" href="#">Pacientes</a>
                                 </li>
-                                <li class="nav-item" id="gerenciamento-nav"><a class="my-menu-links" aria-current="page" style="display: none;"
+                                <li class="nav-item d-none" id="gerenciamento-nav"><a class="my-menu-links" aria-current="page" 
                                         id="gerenciamento-nav" href="#">Gerenciamento</a></li>
                             </ul>
 
                             <div class="my-menu-responsividadeIconesBotao">
                                 <!-- Btn - Paciente -->
-                                <span class="icone" id="icone-paciente"> <img
+                                <span class="d-none" id="icone-paciente"> <img
                                         src="frontend/images/iconeMenuPaciente.svg" alt="" class="mx-2"> </span>
 
                                 <!-- Btn - Fisioterapeuta -->
-                                <span class="icone" id="icone-medico"> <img
+                                <span class="d-none" id="icone-medico"> <img
                                         src="frontend/images//iconeMenuFisioterapeuta.svg" alt=""> </span>
 
                                 <!-- Btn Login -->
-                                <a href="#" class="my-menu-btnPerfil mx-2" id="botao-login" data-bs-toggle="modal"
+                                <a href="#" class=" show my-menu-btnPerfil mx-2" id="botao-login" data-bs-toggle="modal"
                                     data-bs-target="#loginModal">
                                     <i class="fa-solid fa-user" style="color: white;"></i><span
                                         style="font-weight: 500;">
@@ -271,7 +271,7 @@
                                 </a>
 
                                 <!-- Btn Logout -->
-                                <a href="#" class="my-menu-btnPerfil mx-2" id="botao-logout" style="display: none;"
+                                <a href="#" class="d-none my-menu-btnPerfil mx-2" id="botao-logout"
                                     onclick="logout()">
                                     <i class="fa fa-sign-out" aria-hidden="true" style="color: white"></i>
                                     <span style="font-weight: 500;">
@@ -280,16 +280,13 @@
                                 </a>
 
                                 <!-- Btn Perfil -->
-                                <a href="#" class="my-menu-btnPerfil mx-2" data-bs-toggle="modal"
+                                <a href="#" class="my-menu-btnPerfil mx-2 d-none" id="perfil-nav" data-bs-toggle="modal"
                                     data-bs-target="#perfilModal">
                                     <i class="fa-solid fa-user" style="color: white;"></i><span
                                         style="font-weight: 500;">
                                         Perfil</span>
                                 </a>
 
-                                <!-- Btn - Sair -->
-                                <a href="#" class=""> <img src="frontend/images/iconeMenuX.svg" alt=""
-                                        height="24px"></a>
                             </div>
                         </div>
                     </div>
