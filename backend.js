@@ -16,12 +16,14 @@ app.use(cors())
 const Paciente = mongoose.model("Paciente", mongoose.Schema({
     login: {type: String, required: true, unique: true},
     password: {type: String, required: true},
+    nome: {type: String, required: true},
     tipo: {type: String, required: true}
 }))
 
 const Medico = mongoose.model("Medico", mongoose.Schema({
     login: {type: String, required: true, unique: true},
     password: {type: String, required: true},
+    nome: {type: String, required: true},
     tipo: {type: String, required: true}
 }))
 
@@ -39,10 +41,10 @@ async function conectarAoMongoDB() {
 // signup
 app.post("/signup", async (req, res) => {
     try {
-        const { login, password } = req.body; // O tipo já não será enviado
+        const { login, password, nome } = req.body; // O tipo já não será enviado
 
         // Verifica se os campos obrigatórios estão preenchidos
-        if (!login || !password) {
+        if (!login || !password || !nome) {
             return res.status(400).json({ error: "Preencha todos os campos obrigatórios!" });
         }
 
@@ -53,6 +55,7 @@ app.post("/signup", async (req, res) => {
         const usuario = new Paciente({ 
             login: login, 
             password: senhaCriptografada,
+            nome: nome,
             tipo: "paciente" // Aqui o tipo é fixado como paciente
         });
 

@@ -9,6 +9,7 @@ async function cadastrarUsuario() {
     let passwordCadastroInput = document.querySelector("#usuarioPasswordInput");
     let usuarioCadastro = usuarioCadastroInput.value
     let passwordCadastro = passwordCadastroInput.value 
+    let nomePaciente = usuarioNomeInput.value
     if (usuarioCadastro && passwordCadastro) {
         try {
             const cadastroEndpoint = "/signup"
@@ -16,10 +17,12 @@ async function cadastrarUsuario() {
             // Remover o tipo e sempre cadastrar como paciente
             await axios.post(URLCompleta, {
                 login: usuarioCadastro, 
-                password: passwordCadastro
+                password: passwordCadastro,
+                nome: nomePaciente
             }) 
             usuarioCadastroInput.value = ""
             passwordCadastroInput.value = ""
+            usuarioNomeInput.value = ""
             exibirAlerta(".alert-modal-cadastro", "Usuário cadastrado com sucesso", ["show", "alert-success"], ["d-none", "alert-danger"], 2000);
             // ocultartModal("#cadastroModal", 1000)
         } catch (error) {
