@@ -31,6 +31,21 @@ async function cadastrarUsuario() {
 }
 
 
+const tipoUsuario = response.data.tipo;
+
+// Função para personalizar a nav-bar
+function customizarNavBar(tipoUsuario) {
+    if (tipoUsuario === 'pacientes') {
+      document.getElementById('pacientes').style.display = 'none'; // Esconde "Pacientes"
+      document.getElementById('lembretes').textContent = 'Exercícios'; // Altera "Lembretes"
+    } else if (tipoUsuario === 'medico') {
+      document.getElementById('fisioterapeutas').style.display = 'none'; // Esconde "Fisioterapeutas"
+      document.getElementById('lembretes').textContent = 'Criar Lembretes'; // Altera "Lembretes"
+    }
+  }
+  
+  // Chama a função passando o tipo de usuário
+  customizarNavBar(userType);
 
 // Login Users
 async function fazerLogin() {
