@@ -112,8 +112,10 @@ app.post("/login", async (req, res) => {
         { expiresIn: "1h" }
     );
 
+    const nome = usuario.nome;
+
     // Retorna o token e o tipo de usuário
-    res.status(200).json({ token, tipo: tipoUsuario });
+    res.status(200).json({ token, tipo: tipoUsuario, nome});
 });
 
 
