@@ -102,4 +102,13 @@ h3 > #site {
     margin-top: 1%;
 }
 
+/* imagem perfil (Modal) */
+.modal-perfil {
+    text-align: center;
+}
+
+.img-modal-perfil {
+    width: 5%;
+    height: auto;
+}
 

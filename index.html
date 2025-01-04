@@ -30,24 +30,26 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="perfilModalLabel">Perfil do Usuário</h5>
+                    <h5 class="modal-title" id="perfilModalLabel"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
 
                     <div class="row">
-                        <div class="col-6" style="text-align: center;">
-                            <img src="frontend/images/imagemPerfilFisioterapetuta.svg" alt="" height="200px"
-                                class="mb-2">
-                            <button>Editar</button>
+                        <div class="col-6 modal-perfil">
+                            <img src="frontend/images/imagemPerfilFisioterapetuta.svg" alt="" class="mb-2 img-modal-perfil">
+                            <button>Editar</button> <!-- Aqui acredito que devemos colocar um input para fotos -->
                         </div>
                         <div class="col-6" ba>
-                            <h5>Dr. Roberto Mendes</h5>
-                            <h6>Fisioterapia Ortopédica</h6>
+                            <h5 id="nomeModalLabel"></h5>
+                            <h6 id="profModalLabel">Fisioterapia Ortopédica</h6> <!-- Trocara profissão pelo botão editar -->
                             <hr>
-                            <p>Especialista em reabilitação de lesões esportivas e tratamentos ortopédicos</p>
-                            <p><i class="fa-solid fa-envelope"></i> fisioterapeuta@gmail.com</p>
-                            <p><i class="fa-solid fa-user"></i> 35 anos</p>
+                            <!-- Não terá descrição do paciente (Não vejo sentido) -->
+                            <!-- Por padrão deixei para exibir -->
+                            <p class="show" id="descricaoModalLabel">Especialista em reabilitação de lesões esportivas e tratamentos ortopédicos</p> 
+                            <!-- O email é o proprio login do Schema -->
+                            <p id="emailModalLabel"><i class="fa-solid fa-envelope"></i> fisioterapeuta@gmail.com</p>
+                            <p id="idadeModalLabel"><i class="fa-solid fa-user"></i> 35 anos</p>
                             <button>Editar</button>
                         </div>
                     </div>

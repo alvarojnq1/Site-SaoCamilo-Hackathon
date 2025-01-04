@@ -14,17 +14,23 @@ app.use(cors())
 
 // model paciente
 const Paciente = mongoose.model("Paciente", mongoose.Schema({
-    login: {type: String, required: true, unique: true},
+    login: {type: String, required: true, unique: true}, // login também é o email usado no perfil do usuário (modal)
     password: {type: String, required: true},
     nome: {type: String, required: true},
-    tipo: {type: String, required: true}
+    tipo: {type: String, required: true},
+    profissao: {type: String, required: true},
+    descricao: {type: String},
+    idade: {type: Number, required: true, min: 0}
 }))
 
 const Medico = mongoose.model("Medico", mongoose.Schema({
-    login: {type: String, required: true, unique: true},
+    login: {type: String, required: true, unique: true}, // login também é o email usado no perfil do usuário (modal)
     password: {type: String, required: true},
     nome: {type: String, required: true},
-    tipo: {type: String, required: true}
+    tipo: {type: String, required: true},
+    profissao: {type: String, required: true},
+    descricao: {type: String, required: true},
+    idade: {type: Number, required: true, min: 0}
 }))
 
 // Connecting to mondoDB
