@@ -4,29 +4,42 @@ const protocolo = `http://`
 const baseURL = `localhost:3000`
 
 // Função para verificar se o usuário está logado e configurar a navbar após o refresh
-document.addEventListener("DOMContentLoaded", () => {
+window.onload = () => {
     const token = localStorage.getItem('token'); // Recupera o token armazenado no localStorage
     const tipo = localStorage.getItem('tipo'); // Recupera o tipo de usuário armazenado no localStorage
 
     if (token && tipo) {
         // Se o token e o tipo estiverem presentes, o usuário está logado
-        // Configura a navbar com base no tipo de usuário
-        configurarNavbar(tipo);
+        configurarNavbar(tipo); // Função que configura a navbar com base no tipo de usuário
         
-        // Aqui você pode fazer qualquer outra coisa necessária, como atualizar o nome do usuário na interface
+        // Atualiza o perfil do usuário no modal
+        // Verificar prof, descr... / if (nomeUsuario && profUsuario && descrUsuario...)
         const nomeUsuario = localStorage.getItem('nome');
         if (nomeUsuario) {
             const tituloModal = document.getElementById('perfilModalLabel');
-            tituloModal.textContent = `Olá, ${nomeUsuario}!`;  // Atualiza com o nome do usuário
+            tituloModal.textContent = `Olá, ${nomeUsuario}!`;  // Atualiza o nome no modal
+
+            // Separa médico e paciente
+            if (tipo === "paciente") {
+                const nomeModal = document.getElementById('nomeModalLabel');
+                nomeModal.textContent = `${nomeUsuario}`;  // Atualiza o nome no modal
+            }
+            if (tipo === "medico") {
+                const nomeModal = document.getElementById('nomeModalLabel');
+                nomeModal.textContent = `Dr(a). ${nomeUsuario}`;  // Atualiza o nome no modal
+            }
         }
+
+        // Se houver outros dados como profissão, idade, etc, atualize da mesma forma
+        // const profUsuario = localStorage.getItem('profissao');
+        // const descricaoUsuario = localStorage.getItem('descricao');
+        // const idadeUsuario = localStorage.getItem('idade');
     } else {
-        // Se o token não estiver presente, o usuário não está logado, e você pode redirecionar ou mostrar o login
-        // Por exemplo, esconder elementos do perfil ou exibir o botão de login
+        // Se não estiver logado, exibe o botão de login
         document.getElementById("botao-login").classList.remove("d-none");
         document.getElementById("botao-login").classList.add("show");
     }
-});
-
+};
 
 async function cadastrarUsuario() {
     let usuarioCadastroInput = document.querySelector("#usuarioCadastroInput");
@@ -65,14 +78,13 @@ async function cadastrarUsuario() {
 
             // Exibe alerta de sucesso
             exibirAlerta(".alert-modal-cadastro", "Usuário cadastrado com sucesso", ["show", "alert-success"], ["d-none", "alert-danger"], 2000);
-            
-            // Ocultar modal (se necessário)
-            // ocultartModal("#cadastroModal", 1000);
+            ocultartModal("#cadastroModal", 1000);
         } catch (error) {
             exibirAlerta(".alert-modal-cadastro", "Erro ao cadastrar usuário", ["show", "alert-danger"], ["d-none", "alert-success"], 2000);
         }
     } else {
         exibirAlerta(".alert-modal-cadastro", "Preencha todos os campos", ["show", "alert-danger"], ["d-none", "alert-success"], 2000);
+        ocultartModal("#cadastroModal", 1000);
     }
 }
 
@@ -90,33 +102,8 @@ function customizarNavBar(tipoUsuario) {
     }
   }
   
-  // Chama a função passando o tipo de usuário
-  customizarNavBar(userType);
-
-// Login Users
-// Função para verificar se o usuário está logado e configurar a navbar após o refresh
-window.onload = () => {
-    const token = localStorage.getItem('token'); // Recupera o token armazenado no localStorage
-    const tipo = localStorage.getItem('tipo'); // Recupera o tipo de usuário armazenado no localStorage
-
-    if (token && tipo) {
-        // Se o token e o tipo estiverem presentes, o usuário está logado
-        // Configura a navbar com base no tipo de usuário
-        configurarNavbar(tipo);
-        
-        // Aqui você pode fazer qualquer outra coisa necessária, como atualizar o nome do usuário na interface
-        const nomeUsuario = localStorage.getItem('nome');
-        if (nomeUsuario) {
-            const tituloModal = document.getElementById('perfilModalLabel');
-            tituloModal.textContent = `Olá, ${nomeUsuario}!`;  // Atualiza com o nome do usuário
-        }
-    } else {
-        // Se o token não estiver presente, o usuário não está logado, e você pode redirecionar ou mostrar o login
-        // Por exemplo, esconder elementos do perfil ou exibir o botão de login
-        document.getElementById("botao-login").classList.remove("d-none");
-        document.getElementById("botao-login").classList.add("show");
-    }
-};
+// Chama a função passando o tipo de usuário
+customizarNavBar(userType);
 
 // Login Users
 async function fazerLogin() {
@@ -147,9 +134,15 @@ async function fazerLogin() {
                 localStorage.setItem('nome', nome); // Armazenando o nome do usuário
                 console.log("Token armazenado com sucesso!");
 
-                // Alterar o título do modal para incluir o nome do usuário
+                // Alterar o título do modal para incluir o nome do usuário. 
                 const tituloModal = document.getElementById('perfilModalLabel');
                 tituloModal.textContent = `Olá, ${nome}!`;  // Atualiza com o nome do usuário
+
+                // Separa se for paciente ou médico
+                if (tipo === "paciente") {
+                    const nomeModal = document.getElementById('nomeModalLabel');
+                    nomeModal.textContent = `${nome}`;
+                }
 
                 // Chama a função para configurar a navbar com base no tipo de usuário
                 configurarNavbar(tipo);
@@ -162,6 +155,7 @@ async function fazerLogin() {
         }
     } else {
         exibirAlerta(".alert-modal-login", "Preencha todos os campos", ["show", "alert-danger"], ["d-none", "alert-success"], 2000);
+        ocultartModal("#loginModal", 1000);
     }
 }
 
@@ -210,32 +204,6 @@ function configurarNavbar(tipo) {
         document.getElementById("pacientes-nav").classList.remove("d-none");
     }
 }
-
-
-// Validação do Token no Frontend (quando a página for recarregada)
-// Função para verificar se o usuário está logado e configurar a navbar após o refresh
-window.onload = () => {
-    const token = localStorage.getItem('token'); // Recupera o token armazenado no localStorage
-    const tipo = localStorage.getItem('tipo'); // Recupera o tipo de usuário armazenado no localStorage
-
-    if (token && tipo) {
-        // Se o token e o tipo estiverem presentes, o usuário está logado
-        // Configura a navbar com base no tipo de usuário
-        configurarNavbar(tipo);
-        
-        // Aqui você pode fazer qualquer outra coisa necessária, como atualizar o nome do usuário na interface
-        const nomeUsuario = localStorage.getItem('nome');
-        if (nomeUsuario) {
-            const tituloModal = document.getElementById('perfilModalLabel');
-            tituloModal.textContent = `Olá, ${nomeUsuario}!`;  // Atualiza com o nome do usuário
-        }
-    } else {
-        // Se o token não estiver presente, o usuário não está logado, e você pode redirecionar ou mostrar o login
-        // Por exemplo, esconder elementos do perfil ou exibir o botão de login
-        document.getElementById("botao-login").classList.remove("d-none");
-        document.getElementById("botao-login").classList.add("show");
-    }
-};
 
 // Função para realizar logout
 function logout() {
