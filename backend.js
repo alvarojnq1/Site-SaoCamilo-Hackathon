@@ -18,9 +18,8 @@ const Paciente = mongoose.model("Paciente", mongoose.Schema({
     password: {type: String, required: true},
     nome: {type: String, required: true},
     tipo: {type: String, required: true},
-    profissao: {type: String, required: true},
-    descricao: {type: String},
-    idade: {type: Number, required: true, min: 0}
+    profissao: { type: String, default: null }, // Agora não é obrigatório
+    idade: { type: Number, default: null, min: 0 } // Agora não é obrigatório
 }))
 
 const Medico = mongoose.model("Medico", mongoose.Schema({
@@ -47,7 +46,7 @@ async function conectarAoMongoDB() {
 // signup
 app.post("/signup", async (req, res) => {
     try {
-        const { login, password, nome } = req.body; // O tipo já não será enviado
+        const { login, password, nome, profissao, idade } = req.body;
 
         // Verifica se os campos obrigatórios estão preenchidos
         if (!login || !password || !nome) {
@@ -62,7 +61,9 @@ app.post("/signup", async (req, res) => {
             login: login, 
             password: senhaCriptografada,
             nome: nome,
-            tipo: "paciente" // Aqui o tipo é fixado como paciente
+            tipo: "paciente", // Aqui o tipo é fixado como paciente
+            profissao: profissao || null, // Define como null caso não seja enviado
+            idade: idade || null // Define como null caso não seja enviado
         });
 
         // Salva no MongoDB
@@ -76,6 +77,8 @@ app.post("/signup", async (req, res) => {
     }
 });
 
+
+// Login
 // Login
 app.post("/login", async (req, res) => {
     const { login, password } = req.body;
@@ -88,11 +91,11 @@ app.post("/login", async (req, res) => {
     let usuario;
     let tipoUsuario = '';
 
-    usuario = await Paciente.findOne({ login });  // Verifica paciente
+    usuario = await Paciente.findOne({ login }); // Verifica paciente
     if (usuario) {
         tipoUsuario = 'paciente';
     } else {
-        usuario = await Medico.findOne({ login });  // Verifica médico
+        usuario = await Medico.findOne({ login }); // Verifica médico
         if (usuario) {
             tipoUsuario = 'medico';
         }
@@ -116,11 +119,23 @@ app.post("/login", async (req, res) => {
         { expiresIn: "1h" }
     );
 
-    const nome = usuario.nome;
+    // Retorna os dados relevantes
+    const retorno = {
+        token,
+        tipo: tipoUsuario,
+        nome: usuario.nome,
+        profissao: usuario.profissao || null, // Inclui profissão
+        idade: usuario.idade || null,        // Inclui idade
+    };
 
-    // Retorna o token e o tipo de usuário
-    res.status(200).json({ token, tipo: tipoUsuario, nome});
+    // Inclui descrição se o usuário for médico
+    if (tipoUsuario === 'medico') {
+        retorno.descricao = usuario.descricao || null;
+    }
+
+    res.status(200).json(retorno);
 });
+
 
 // Validação do Token
 app.get("/validate-token", (req, res) => {

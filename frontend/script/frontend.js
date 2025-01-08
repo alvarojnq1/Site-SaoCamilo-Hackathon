@@ -13,27 +13,34 @@ window.onload = () => {
         configurarNavbar(tipo); // Função que configura a navbar com base no tipo de usuário
         
         // Atualiza o perfil do usuário no modal
-        // Verificar prof, descr... / if (nomeUsuario && profUsuario && descrUsuario...)
         const nomeUsuario = localStorage.getItem('nome');
+        const profissaoUsuario = localStorage.getItem('profissao');
+        const idadeUsuario = localStorage.getItem('idade');
+        const descricaoUsuario = localStorage.getItem('descricao'); // Só para médicos
+
         if (nomeUsuario) {
             const tituloModal = document.getElementById('perfilModalLabel');
             tituloModal.textContent = `Olá, ${nomeUsuario}!`;  // Atualiza o nome no modal
 
-            // Separa médico e paciente
-            if (tipo === "paciente") {
-                const nomeModal = document.getElementById('nomeModalLabel');
-                nomeModal.textContent = `${nomeUsuario}`;  // Atualiza o nome no modal
-            }
-            if (tipo === "medico") {
-                const nomeModal = document.getElementById('nomeModalLabel');
-                nomeModal.textContent = `Dr(a). ${nomeUsuario}`;  // Atualiza o nome no modal
+            const nomeModal = document.getElementById('nomeModalLabel');
+            const profissaoModal = document.getElementById('profModalLabel');
+            const idadeModal = document.getElementById('idadeModalLabel');
+            const descricaoModal = document.getElementById('descricaoModalLabel'); // Elemento para descrição
+
+            // Atualiza os campos comuns (nome, profissão e idade)
+            nomeModal.textContent = tipo === "medico" ? `Dr(a). ${nomeUsuario}` : `${nomeUsuario}`;
+            profissaoModal.textContent = profissaoUsuario ? `Profissão: ${profissaoUsuario}` : "Profissão: Não informada";
+            idadeModal.textContent = idadeUsuario ? `Idade: ${idadeUsuario}` : "Idade: Não informada";
+
+            // Atualiza a descrição, se o usuário for médico
+            if (tipo === "medico" && descricaoUsuario) {
+                descricaoModal.textContent = `Descrição: ${descricaoUsuario}`;
+                descricaoModal.style.display = "block"; // Exibe o campo de descrição
+            } else if (descricaoModal) {
+                descricaoModal.style.display = "none"; // Oculta o campo para pacientes
             }
         }
 
-        // Se houver outros dados como profissão, idade, etc, atualize da mesma forma
-        // const profUsuario = localStorage.getItem('profissao');
-        // const descricaoUsuario = localStorage.getItem('descricao');
-        // const idadeUsuario = localStorage.getItem('idade');
     } else {
         // Se não estiver logado, exibe o botão de login
         document.getElementById("botao-login").classList.remove("d-none");
@@ -44,9 +51,11 @@ window.onload = () => {
 async function cadastrarUsuario() {
     let usuarioCadastroInput = document.querySelector("#usuarioCadastroInput");
     let passwordCadastroInput = document.querySelector("#usuarioPasswordInput");
-    let usuarioCadastro = usuarioCadastroInput.value
-    let passwordCadastro = passwordCadastroInput.value 
-    let nomePaciente = usuarioNomeInput.value
+    let usuarioNomeInput = document.querySelector("#usuarioNomeInput");
+    
+    let usuarioCadastro = usuarioCadastroInput.value;
+    let passwordCadastro = passwordCadastroInput.value;
+    let nomePaciente = usuarioNomeInput.value;
 
     // Função para capitalizar o nome (primeira letra de cada palavra maiúscula)
     const formatarNome = (nome) => {
@@ -54,22 +63,24 @@ async function cadastrarUsuario() {
             .split(" ") // Separa o nome em partes (por espaço)
             .map(palavra => palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase()) // Capitaliza cada palavra
             .join(" "); // Junta as palavras de volta com espaços
-    }
+    };
 
     // Capitaliza o nome do paciente antes de enviar ao backend
     nomePaciente = formatarNome(nomePaciente);
 
-    if (usuarioCadastro && passwordCadastro) {
+    if (usuarioCadastro && passwordCadastro && nomePaciente) {
         try {
             const cadastroEndpoint = "/signup";
             const URLCompleta = `${protocolo}${baseURL}${cadastroEndpoint}`;
 
             // Envia o nome já formatado (com a primeira letra de cada palavra maiúscula)
             await axios.post(URLCompleta, {
-                login: usuarioCadastro, 
+                login: usuarioCadastro,
                 password: passwordCadastro,
-                nome: nomePaciente
-            }); 
+                nome: nomePaciente,
+                profissao: null,
+                idade: null
+            });
 
             // Limpa os campos
             usuarioCadastroInput.value = "";
@@ -84,7 +95,6 @@ async function cadastrarUsuario() {
         }
     } else {
         exibirAlerta(".alert-modal-cadastro", "Preencha todos os campos", ["show", "alert-danger"], ["d-none", "alert-success"], 2000);
-        ocultartModal("#cadastroModal", 1000);
     }
 }
 
