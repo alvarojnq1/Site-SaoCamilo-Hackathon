@@ -48,6 +48,131 @@ window.onload = () => {
     }
 };
 
+// Função para editar os campos do modal
+function editarCamposModal() {
+    const nomeModal = document.getElementById('nomeModalLabel');
+    const profModal = document.getElementById('profModalLabel');
+    const idadeModal = document.getElementById('idadeModalLabel');
+
+    // Adiciona evento para o clique nos campos
+    nomeModal.addEventListener('click', editarInfoPerfil);
+    profModal.addEventListener('click', editarInfoPerfil);
+    idadeModal.addEventListener('click', editarInfoPerfil);
+
+    // Adiciona evento para o botão 'editar-info-button'
+    document.getElementById('editar-info-button').addEventListener('click', editarInfoPerfil);
+}
+
+// Função para abrir os campos para edição
+function editarInfoPerfil() {
+    const nomeModal = document.getElementById('nomeModalLabel');
+    const profModal = document.getElementById('profModalLabel');
+    const idadeModal = document.getElementById('idadeModalLabel');
+
+    // Habilita a edição nos campos
+    nomeModal.setAttribute('contenteditable', 'true');
+    profModal.setAttribute('contenteditable', 'true');
+    idadeModal.setAttribute('contenteditable', 'true');
+
+    // Exibe botões específicos para edição
+    exibirBotoes(".confirmar-edicao");
+    exibirBotoes(".cancelar-edicao");
+
+    // Esconde o botão de edição
+    esconderBotoes(".botao_editar");
+}
+
+// Função para exibir botões de acordo com o seletor
+function exibirBotoes(seletor) {
+    let botao = document.querySelector(seletor);
+
+    if (botao) {
+        botao.classList.add('show');
+        botao.classList.remove('d-none');
+    }
+}
+
+// Função para esconder botões de acordo com o seletor
+function esconderBotoes(seletor) {
+    let botao = document.querySelector(seletor);
+
+    if (botao) {
+        botao.classList.add('d-none');
+        botao.classList.remove('show');
+    }
+}
+
+// Função para cancelar a edição
+function cancelar_edicao() {
+    const nomeModal = document.getElementById('nomeModalLabel');
+    const profModal = document.getElementById('profModalLabel');
+    const idadeModal = document.getElementById('idadeModalLabel');
+
+    // Bloqueia os campos novamente
+    nomeModal.setAttribute('contenteditable', 'false');
+    profModal.setAttribute('contenteditable', 'false');
+    idadeModal.setAttribute('contenteditable', 'false');
+
+    // Esconde o botão de confirmar
+    esconderBotoes(".confirmar-edicao");
+
+    // Esconde o botão de cancelar
+    esconderBotoes(".cancelar-edicao");
+
+    // Exibe o botão de editar novamente
+    exibirBotoes(".botao_editar");
+}
+
+// Função para confirmar e salvar no Banco de Dados
+function confirmar_edicao() {
+    const nomeModal = document.getElementById('nomeModalLabel').innerText;
+    const profModal = document.getElementById('profModalLabel').innerText;
+    const idadeModal = document.getElementById('idadeModalLabel').innerText;
+
+    // Aqui você faz o envio para o banco de dados usando fetch, axios ou outro método
+    fetch('/api/salvar-alteracoes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            nome: nomeModal,
+            profissao: profModal,
+            idade: idadeModal
+        }),
+    })
+    .then(response => {
+        if (response.ok) {
+            // Sucesso
+            alert('Alterações salvas com sucesso!');
+            // Aqui pode atualizar o conteúdo diretamente para não perder o estado caso faça refresh
+            // Exemplo:
+            // location.reload();
+        } else {
+            alert('Ocorreu um erro ao salvar as alterações!');
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert('Erro na conexão com o banco de dados!');
+    });
+}
+
+// Atualização automática ao refresh da página (permanece com as atualizações)
+document.addEventListener('DOMContentLoaded', function() {
+    // Supondo que o endpoint retorna os dados em JSON
+    fetch('/api/get-dados')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('nomeModalLabel').innerText = data.nome;
+        document.getElementById('profModalLabel').innerText = data.profissao;
+        document.getElementById('idadeModalLabel').innerText = data.idade;
+    })
+    .catch(error => {
+        console.error('Erro ao carregar os dados:', error);
+    });
+});
+
 async function cadastrarUsuario() {
     let usuarioCadastroInput = document.querySelector("#usuarioCadastroInput");
     let passwordCadastroInput = document.querySelector("#usuarioPasswordInput");
@@ -231,9 +356,6 @@ function logout() {
     // Você pode redirecionar o usuário para a página de login ou para uma página inicial
     window.location.href = "../../index.html"; // Por exemplo, redirecionar para o login
 }
-
-
-
 
 // função de exibir alerta
 function exibirAlerta(seletor, mensagem, classesToAdd, classesToRemove, timeout) {

@@ -33,28 +33,30 @@
                     <h5 class="modal-title" id="perfilModalLabel"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
 
+                <div class="modal-body">
                     <div class="row">
                         <div class="col-6 modal-perfil">
-                            <img src="frontend/images/imagemPerfilFisioterapetuta.svg" alt="" class="mb-2 img-modal-perfil">
-                            <button>Editar</button> <!-- Aqui acredito que devemos colocar um input para fotos -->
+                            <img src="frontend/images/imagemPerfilFisioterapetuta.svg" alt=""
+                                class="mb-2 img-modal-perfil">
+                            <button id="editar-foto-button">Editar</button>
                         </div>
-                        <div class="col-6" ba>
-                            <h5 id="nomeModalLabel"></h5>
-                            <h6 id="profModalLabel"></h6> <!-- Trocara profissão pelo botão editar -->
+                        <div class="col-6">
+                            <h5 id="nomeModalLabel">Nome Completo</h5>
+                            <h6 id="profModalLabel">Profissão</h6>
                             <hr>
-                            <!-- Não terá descrição do paciente (Não vejo sentido) -->
-                            <!-- Por padrão deixei para exibir -->
-                            <p class="show" id="descricaoModalLabel">Especialista em reabilitação de lesões esportivas e tratamentos ortopédicos</p> 
-                            <!-- O email é o proprio login do Schema -->
+                            <p class="show" id="descricaoModalLabel">Especialista em reabilitação de lesões esportivas e
+                                tratamentos ortopédicos</p>
                             <p id="emailModalLabel"><i class="fa-solid fa-envelope"></i> fisioterapeuta@gmail.com</p>
                             <p id="idadeModalLabel"><i class="fa-solid fa-user"></i> 35 anos</p>
-                            <button>Editar</button>
+                            <button class="show botao_editar" id="editar-info-button" onclick="editarInfoPerfil()">Editar</button>
+
+                            <button class="d-none confirmar-edicao" onclick="confirmar_edicao()">Confirmar</button>
+                            <button class="d-none cancelar-edicao" onclick="cancelar_edicao()">Cancelar</button>
                         </div>
                     </div>
-
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                 </div>
@@ -165,8 +167,8 @@
                                     <!-- Label escondido visualmente -->
                                     <label for="usuarioCadastroInput"
                                         class="col-form-label visually-hidden">Nome</label>
-                                    <input type="text" id="usuarioNomeInput" class="form-control"
-                                        placeholder="Nome" aria-label="Nome" />
+                                    <input type="text" id="usuarioNomeInput" class="form-control" placeholder="Nome"
+                                        aria-label="Nome" />
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
@@ -243,16 +245,19 @@
                             <ul class="navbar-nav ms-auto">
                                 <li class="nav-item"><a class="my-menu-links" aria-current="page"
                                         href="index.html">Home</a> </li>
-                                <li class="nav-item d-none" id="exercicios-nav"><a class="my-menu-links" aria-current="page" href="#">Exercícios</a>
+                                <li class="nav-item d-none" id="exercicios-nav"><a class="my-menu-links"
+                                        aria-current="page" href="#">Exercícios</a>
                                 </li>
-                                <li class="nav-item d-none" id="criar-lembretes-nav"><a class="my-menu-links" aria-current="page" href="#">Criar Lembretes</a>
+                                <li class="nav-item d-none" id="criar-lembretes-nav"><a class="my-menu-links"
+                                        aria-current="page" href="#">Criar Lembretes</a>
                                 </li>
-                                <li class="nav-item d-none" id="fisioterapeutas-nav"><a class="my-menu-links" aria-current="page"
-                                        href="#">Fisioterapeutas</a></li>
-                                <li class="nav-item d-none" id="pacientes-nav"><a class="my-menu-links" aria-current="page" href="#">Pacientes</a>
+                                <li class="nav-item d-none" id="fisioterapeutas-nav"><a class="my-menu-links"
+                                        aria-current="page" href="#">Fisioterapeutas</a></li>
+                                <li class="nav-item d-none" id="pacientes-nav"><a class="my-menu-links"
+                                        aria-current="page" href="#">Pacientes</a>
                                 </li>
-                                <li class="nav-item d-none" id="gerenciamento-nav"><a class="my-menu-links" aria-current="page" 
-                                        id="gerenciamento-nav" href="#">Gerenciamento</a></li>
+                                <li class="nav-item d-none" id="gerenciamento-nav"><a class="my-menu-links"
+                                        aria-current="page" id="gerenciamento-nav" href="#">Gerenciamento</a></li>
                             </ul>
 
                             <div class="my-menu-responsividadeIconesBotao">
@@ -273,8 +278,7 @@
                                 </a>
 
                                 <!-- Btn Logout -->
-                                <a href="#" class="d-none my-menu-btnPerfil mx-2" id="botao-logout"
-                                    onclick="logout()">
+                                <a href="#" class="d-none my-menu-btnPerfil mx-2" id="botao-logout" onclick="logout()">
                                     <i class="fa fa-sign-out" aria-hidden="true" style="color: white"></i>
                                     <span style="font-weight: 500;">
                                         Logout
