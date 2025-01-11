@@ -1,0 +1,35 @@
+:root {
+    --cinza: #6C757D;
+    --branco: #ffffff;
+    --vermelhoClaro: #F2676E;
+    --vermelhoEscuro: #B70F18;
+    --preto: #000000;
+    --pretoSecundario: #111111;
+}
+
+
+.my-lembretes-divisao{
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 100%;
+    padding: 0px;
+}
+
+.my-lembretes-faixaVermelhaLembretes{
+    background-color: var(--vermelhoClaro);
+    text-align: center;
+    color: var(--branco);
+    font-weight: 500;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+}
+
+.my-lembretes-botaoSalvarPrescricao{
+    background-color: var(--vermelhoClaro);
+    padding: 10px;
+    border-radius: 10px;
+    color: var(--branco);
+    font-weight: 500;
+    border: none;
+}
