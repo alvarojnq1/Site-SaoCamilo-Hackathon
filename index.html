@@ -41,13 +41,29 @@
                             <button id="editar-foto-button">Editar</button>
                         </div>
                         <div class="col-6">
-                            <h5 id="nomeModalLabel">Nome Completo</h5>
-                            <h6 id="profModalLabel">Profissão</h6>
+                            <!-- nome -->
+                            <h5 id="nomeModalLabel"></h5>
+                            <!-- profissao -->
+                            <h6>
+                                Profissão: 
+                                <span id="profModalLabel"></span>
+                            </h6>
                             <hr>
-                            <p class="show" id="descricaoModalLabel">Especialista em reabilitação de lesões esportivas e
-                                tratamentos ortopédicos</p>
-                            <p id="emailModalLabel"><i class="fa-solid fa-envelope"></i> fisioterapeuta@gmail.com</p>
-                            <p id="idadeModalLabel"><i class="fa-solid fa-user"></i> 35 anos</p>
+                            <!-- descricao -->
+                            <p class="show" id="descricaoModalLabel"></p> <!-- Apenas para médicos -->
+                            <!-- email -->
+                            <p>
+                                <i class="fa-solid fa-envelope"></i> 
+                                fisioterapeuta@gmail.com
+                                <span id="emailModalLabel"></span>
+                            </p>
+                            <!-- idade -->
+                            <p>
+                                <i class="fa-solid fa-user"></i>
+                                Idade:  
+                                <span id="idadeText"></span>
+                            </p>
+                            
                             <button class="show botao_editar" id="editar-info-button" onclick="editarInfoPerfil()">Editar</button>
 
                             <button class="d-none confirmar-edicao" onclick="confirmar_edicao()">Confirmar</button>

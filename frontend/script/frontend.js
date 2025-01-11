@@ -17,20 +17,22 @@ window.onload = () => {
         const profissaoUsuario = localStorage.getItem('profissao');
         const idadeUsuario = localStorage.getItem('idade');
         const descricaoUsuario = localStorage.getItem('descricao'); // Só para médicos
-
+        
         if (nomeUsuario) {
             const tituloModal = document.getElementById('perfilModalLabel');
             tituloModal.textContent = `Olá, ${nomeUsuario}!`;  // Atualiza o nome no modal
 
             const nomeModal = document.getElementById('nomeModalLabel');
             const profissaoModal = document.getElementById('profModalLabel');
-            const idadeModal = document.getElementById('idadeModalLabel');
-            const descricaoModal = document.getElementById('descricaoModalLabel'); // Elemento para descrição
+            const idadeModal = document.getElementById('idadeText');
+            const descricaoModal = document.getElementById('descricaoModalLabel');
 
-            // Atualiza os campos comuns (nome, profissão e idade)
-            nomeModal.textContent = tipo === "medico" ? `Dr(a). ${nomeUsuario}` : `${nomeUsuario}`;
-            profissaoModal.textContent = profissaoUsuario ? `Profissão: ${profissaoUsuario}` : "Profissão: Não informada";
-            idadeModal.textContent = idadeUsuario ? `Idade: ${idadeUsuario}` : "Idade: Não informada";
+            // Médico -> Atualiza os campos (nome, profissão, descrição e idade)
+            // Paciente -> Atualiza os campos (nome, profissão e idade)
+            nomeModal.textContent = tipo === "medico" ? `Dr(a). ${nomeUsuario}` : nomeUsuario;
+            profissaoModal.textContent = profissaoUsuario ? `Profissão: ${profissaoUsuario}` : "Não informada";
+            descricaoModal.textContent = tipo === "medico" ? descricaoUsuario : "";
+            idadeModal.textContent = idadeUsuario ? `Idade: ${idadeUsuario}` : "Não informada";
 
             // Atualiza a descrição, se o usuário for médico
             if (tipo === "medico" && descricaoUsuario) {
@@ -48,26 +50,11 @@ window.onload = () => {
     }
 };
 
-// Função para editar os campos do modal
-function editarCamposModal() {
-    const nomeModal = document.getElementById('nomeModalLabel');
-    const profModal = document.getElementById('profModalLabel');
-    const idadeModal = document.getElementById('idadeModalLabel');
-
-    // Adiciona evento para o clique nos campos
-    nomeModal.addEventListener('click', editarInfoPerfil);
-    profModal.addEventListener('click', editarInfoPerfil);
-    idadeModal.addEventListener('click', editarInfoPerfil);
-
-    // Adiciona evento para o botão 'editar-info-button'
-    document.getElementById('editar-info-button').addEventListener('click', editarInfoPerfil);
-}
-
 // Função para abrir os campos para edição
 function editarInfoPerfil() {
     const nomeModal = document.getElementById('nomeModalLabel');
     const profModal = document.getElementById('profModalLabel');
-    const idadeModal = document.getElementById('idadeModalLabel');
+    const idadeModal = document.getElementById('idadeText');
 
     // Habilita a edição nos campos
     nomeModal.setAttribute('contenteditable', 'true');
@@ -106,7 +93,7 @@ function esconderBotoes(seletor) {
 function cancelar_edicao() {
     const nomeModal = document.getElementById('nomeModalLabel');
     const profModal = document.getElementById('profModalLabel');
-    const idadeModal = document.getElementById('idadeModalLabel');
+    const idadeModal = document.getElementById('idadeText');
 
     // Bloqueia os campos novamente
     nomeModal.setAttribute('contenteditable', 'false');
@@ -127,7 +114,7 @@ function cancelar_edicao() {
 function confirmar_edicao() {
     const nomeModal = document.getElementById('nomeModalLabel').innerText;
     const profModal = document.getElementById('profModalLabel').innerText;
-    const idadeModal = document.getElementById('idadeModalLabel').innerText;
+    const idadeModal = document.getElementById('idadeText').innerText;
 
     // Aqui você faz o envio para o banco de dados usando fetch, axios ou outro método
     fetch('/api/salvar-alteracoes', {
@@ -166,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(data => {
         document.getElementById('nomeModalLabel').innerText = data.nome;
         document.getElementById('profModalLabel').innerText = data.profissao;
-        document.getElementById('idadeModalLabel').innerText = data.idade;
+        document.getElementById('idadeText').innerText = data.idade;
     })
     .catch(error => {
         console.error('Erro ao carregar os dados:', error);
@@ -262,7 +249,7 @@ async function fazerLogin() {
 
             // Se a resposta contiver o token, armazene o token no localStorage
             if (response.data && response.data.token) {
-                const { nome, tipo } = response.data;
+                const { nome, tipo, profissao, descricao, idade } = response.data;
                 // Armazenar token e outras informações no localStorage
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('tipo', tipo); // Armazenando o tipo de usuário
@@ -270,14 +257,26 @@ async function fazerLogin() {
                 console.log("Token armazenado com sucesso!");
 
                 // Alterar o título do modal para incluir o nome do usuário. 
+                // ------------------ fazer alteração no cadastro também. Exibir as informações após o cadastro --------------------
+                // Altera o nome no titulo do modal
                 const tituloModal = document.getElementById('perfilModalLabel');
-                tituloModal.textContent = `Olá, ${nome}!`;  // Atualiza com o nome do usuário
+                tituloModal.textContent = `Olá, ${nome}!`;
 
-                // Separa se for paciente ou médico
-                if (tipo === "paciente") {
-                    const nomeModal = document.getElementById('nomeModalLabel');
-                    nomeModal.textContent = `${nome}`;
-                }
+                // Altera o nome no body do modal
+                const nomeModal = document.getElementById('nomeModalLabel');
+                nomeModal.textContent = tipo === "medico" ? `Dr(a). ${nome}` : nome;
+
+                const profModal = document.getElementById('profModalLabel');
+                profModal.textContent = profissao ? `Profissão: ${profissao}` : "Não informada";
+
+                const emailModal = document.getElementById('emailModalLabel');
+                emailModal.textContent = email ? email : "";
+
+                const descModal = document.getElementById('descricaoModalLabel');
+                descModal.textContent = tipo === "medico" ? descricao : "";
+
+                const idadeModal = document.getElementById('idadeText');
+                idadeModal.textContent = idade ? `Idade: ${idade}!` : "Não informada"; 
 
                 // Chama a função para configurar a navbar com base no tipo de usuário
                 configurarNavbar(tipo);

@@ -47,38 +47,36 @@ async function conectarAoMongoDB() {
 app.post("/signup", async (req, res) => {
     try {
         const { login, password, nome, profissao, idade } = req.body;
-
+    
         // Verifica se os campos obrigatórios estão preenchidos
         if (!login || !password || !nome) {
             return res.status(400).json({ error: "Preencha todos os campos obrigatórios!" });
         }
-
+    
         // Criptografa a senha
         const senhaCriptografada = await bcrypt.hash(password, 10);
-
+    
         // Cria um usuário do tipo paciente automaticamente
-        const usuario = new Paciente({ 
-            login: login, 
+        const usuario = new Paciente({
+            login: login,
             password: senhaCriptografada,
             nome: nome,
             tipo: "paciente", // Aqui o tipo é fixado como paciente
             profissao: profissao || null, // Define como null caso não seja enviado
             idade: idade || null // Define como null caso não seja enviado
         });
-
+    
         // Salva no MongoDB
         const respMongo = await usuario.save();
         console.log("Usuário cadastrado:", respMongo);
-
+    
         res.status(201).json({ message: "Usuário cadastrado com sucesso!" });
     } catch (error) {
         console.error("Erro ao cadastrar usuário:", error);
         res.status(500).json({ error: "Erro ao cadastrar usuário." });
-    }
+    }       
 });
 
-
-// Login
 // Login
 app.post("/login", async (req, res) => {
     const { login, password } = req.body;
